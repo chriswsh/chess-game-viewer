@@ -1,6 +1,8 @@
 {
   "name": "chess-game-viewer",
-  "version": "0.1.0",
+  "author": "Chris Wong Sick Hong",
+  "version": "0.0.0",
+  "url": "https://github.com/chriswsh/chess-game-viewer",
   "private": true,
   "dependencies": {
     "lodash": "^4.17.4",
