@@ -16,7 +16,6 @@ export function Square(props) {
     return (
         <div className={squareClass}>
             {props.id}
-            <Piece />
         </div>
     );
 }

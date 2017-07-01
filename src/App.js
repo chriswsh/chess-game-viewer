@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navbar, Grid, Row, Col } from 'react-bootstrap';
 import { Chessboard } from './components/index';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Chessboard />
+      <div>
+        <Navbar>
+            <Navbar.Header>
+                <Navbar.Brand>
+                    Chess PGN Viewer
+                </Navbar.Brand>
+            </Navbar.Header>
+        </Navbar>
+        <Grid>
+            <Row className="show-grid">
+                <Col xs={12} md={12}>
+                    <Chessboard />
+                </Col>
+            </Row>
+        </Grid>
       </div>
     );
   }

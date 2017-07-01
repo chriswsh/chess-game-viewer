@@ -9,7 +9,7 @@ import { BEMcombine } from '../../utils/settings'
 const componentTree = [`Chessboard`];
 
 export default class Chessboard extends Component {
-
+    // I render an individual square
     renderSquare(i) {
         return (
             <Square
@@ -20,6 +20,7 @@ export default class Chessboard extends Component {
         );
     }
 
+    // I render the chessboard
     render() {
         const squares = [];
         // squares[0] is a8
