@@ -31,8 +31,6 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "snapshotSerializers": [
-    "<rootDir>/node_modules/enzyme-to-json/serializer"
-    ]
+    "snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"]
   }
 }
