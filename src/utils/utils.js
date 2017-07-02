@@ -29,3 +29,30 @@ export const castArray = (arg) => {
 
     return [arg];
 }
+
+// I return:
+//   the constructor name of an object defined with `class` (for React components defined with class)
+//   the name of a function passed in (for React stateless functional components)
+//   undefined otherwise
+export const getComponentName = (obj) => {
+    const functionNameRegex = /function\s(\w+)\(/;
+    const classNameRegex = /class\s(\w+)/;
+    let results;
+
+    switch (typeof obj) {
+        case `function`:
+            results = functionNameRegex.exec(obj.toString());
+            return results ? results[1] : `anonymous`;
+        case `object`:
+            if (obj === null) return undefined;
+            // Check for `class` pattern as constructor
+            results = classNameRegex.exec(obj.constructor.toString());
+            // If not found, try `function` pattern as constructor
+            if (!results) {
+                results = functionNameRegex.exec(obj.constructor.toString());
+            }
+            return results[1];
+        default:
+            return undefined;
+    }
+}

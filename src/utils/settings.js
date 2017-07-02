@@ -7,3 +7,4 @@ import { BEMcombine as baseCombine } from './utils';
 const BEM_DOMAIN = `wsh`;
 
 export const BEMcombine = curry(baseCombine)(BEM_DOMAIN);
+export const getBEMDomain = () => BEM_DOMAIN;
