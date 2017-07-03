@@ -41,8 +41,8 @@ export function withBEM(WrappedComponent) {
             let parentChain = getComponentName(WrappedComponent);
 
             if (this.props) {
-                if (this.props.parents && Array.isArray(this.props.parents)) {
-                    parentChain = this.props.parents.concat(parentChain);
+                if (this.props.BEMparents && Array.isArray(this.props.BEMparents)) {
+                    parentChain = this.props.BEMparents.concat(parentChain);
                 }
             }
 
@@ -51,7 +51,7 @@ export function withBEM(WrappedComponent) {
 
         BEMFullClass() {
             if (this.props) {
-                if (this.props.states && Array.isArray(this.props.states)) return this.BEMCombineState()(this.props.states);
+                if (this.props.BEMmodifiers && Array.isArray(this.props.BEMmodifiers)) return this.BEMCombineState()(this.props.BEMmodifiers);
             }
             return this.BEMCombineState()([]);
         }
