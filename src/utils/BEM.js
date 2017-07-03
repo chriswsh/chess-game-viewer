@@ -57,8 +57,9 @@ export function withBEM(WrappedComponent) {
         }
 
         render() {
+            const { BEMparents, BEMmodifiers, ...otherProps } = this.props;
             return (
-                <WrappedComponent BEMClass={this.BEMFullClass()} />
+                <WrappedComponent BEMclass={this.BEMFullClass()} {...otherProps} />
             );
         }
     }

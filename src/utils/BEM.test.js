@@ -45,26 +45,30 @@ describe(`withBEM()`, () => {
         expect(rendered.length).toEqual(1);
     });
 
-    it('should pass a BEMClass prop to the wrapped component, default of domain-ComponentName', () => {
+    it('should pass a BEMclass prop to the wrapped component, default of domain-ComponentName', () => {
         const BEM = shallow(<BEMTest />);
-        expect(BEM.find(`TestBase`).props().BEMClass).toEqual(`${getBEMDomain()}-TestBase`);
+        expect(BEM.find(`TestBase`).props().BEMclass).toEqual(`${getBEMDomain()}-TestBase`);
     })
 
-    it('should pass a BEMClass prop to the wrapped component with a correct parent chain', () => {
+    it('should pass a BEMclass prop to the wrapped component with a correct parent chain', () => {
         const BEM = shallow(<BEMTest BEMparents={[`Grandparent`, `Parent`]} />);
-        expect(BEM.find(`TestBase`).props().BEMClass).toEqual(`${getBEMDomain()}-Grandparent-Parent-TestBase`);
+        expect(BEM.find(`TestBase`).props().BEMclass).toEqual(`${getBEMDomain()}-Grandparent-Parent-TestBase`);
     });
 
     it('should pass a BEMclass prop to the wrapped component with the correct states', () => {
         const BEM = shallow(<BEMTest BEMmodifiers={['active', 'highlighted']} />);
-        expect(BEM.find(`TestBase`).props().BEMClass).toEqual(`${getBEMDomain()}-TestBase ${getBEMDomain()}-TestBase--active ${getBEMDomain()}-TestBase--highlighted`);
+        expect(BEM.find(`TestBase`).props().BEMclass).toEqual(`${getBEMDomain()}-TestBase ${getBEMDomain()}-TestBase--active ${getBEMDomain()}-TestBase--highlighted`);
     });
 
-    it('should pass a BEMClass prop to the wrapped component with the correct parent chain and states', () => {
+    it('should pass a BEMclass prop to the wrapped component with the correct parent chain and states', () => {
         const BEM = shallow(<BEMTest BEMparents={[`Parent`]} BEMmodifiers={['active', `highlighted`]} />);
         const expected = `${getBEMDomain()}-Parent-TestBase ${getBEMDomain()}-Parent-TestBase--active ${getBEMDomain()}-Parent-TestBase--highlighted`;
-        expect(BEM.find(`TestBase`).props().BEMClass).toEqual(expected);
+        expect(BEM.find(`TestBase`).props().BEMclass).toEqual(expected);
     });
 
-    it('should pass all others')
+    it('should pass all props besides BEMparents and BEMmodifiers to the wrapped component', () => {
+        const BEM = shallow(<BEMTest prop1={`test1`} prop2={`test2`} />);
+        expect(BEM.find(`TestBase`).props().prop1).toEqual(`test1`);
+        expect(BEM.find(`TestBase`).props().prop2).toEqual(`test2`);
+    });
 });
