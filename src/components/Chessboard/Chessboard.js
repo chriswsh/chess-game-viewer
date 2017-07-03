@@ -1,21 +1,18 @@
 import './Chessboard.css';
 
 import React, { Component } from 'react';
-import { Square } from '../Square/Square';
-import { Piece } from '../Piece/Piece';
+import Square from '../Square/Square';
+import { withBEM } from '../../utils/BEM';
+import Chess from '../../utils/Chess';
 
-import { BEMcombine } from '../../utils/settings'
-
-const componentTree = [`Chessboard`];
-
-export default class Chessboard extends Component {
+class Chessboard extends Component {
     // I render an individual square
     renderSquare(i) {
         return (
             <Square
-                color = {Chessboard.squareColor(i)}
+                BEMmodifiers = {[Chess.squareColor(i)]}
                 key = {i}
-                id = {Chessboard.ANname(i)}
+                id = {Chess.algebraicName(i)}
             />
         );
     }
@@ -28,22 +25,14 @@ export default class Chessboard extends Component {
             squares.push(this.renderSquare(i));
         }
         return (
-            <div className={BEMcombine(componentTree)([])}>
-                {squares}
+            <div className={this.props.BEMclass}>
+                { squares }
             </div>
         );
     }
-
-    // I convert a square key (0-63) to the square's name in algebraic notation
-    // 0 = top right corner, or a8
-    static ANname(i) {
-        return String.fromCharCode(97 + (i % 8)) + (8 - Math.floor(i / 8));
-    }
-
-    static squareColor(i) {
-        let color = i % 2;
-        color = (Math.floor(i / 8) % 2) ? Math.abs(color - 1) : color;
-
-        return color ? `dark` : `light`;
-    }
 }
+
+// Export the BEM-Wrapped Component with the samename as the .js file
+const BEMChessboard = Object.freeze(withBEM(Chessboard));
+export { BEMChessboard as Chessboard };
+export { BEMChessboard as default };

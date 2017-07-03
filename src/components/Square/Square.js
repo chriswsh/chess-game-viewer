@@ -1,21 +1,26 @@
 import './Square.css';
 
-import { BEMcombine } from '../../utils/settings'
-
-import React from 'react';
-import { Piece } from '../Piece/Piece';
+import React, { Component } from 'react';
+import { withBEM } from '../../utils/BEM';
+import Piece from '../Piece/Piece';
 
 const componentTree = [`Square`];
 
-// Let's use stateless functional components - we're jumping into functional programming, after all
-export function Square(props) {
-    // construct class name from props
-    const squareBase = BEMcombine(componentTree);
-    const squareClass = props.color ? [squareBase([]), squareBase([props.color])].join(` `) : squareBase([]);
+class Square extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-    return (
-        <div className={squareClass}>
-            {props.id}
-        </div>
-    );
+    render() {
+        return (
+            <div className={this.props.BEMclass}>
+                {this.props.id}
+            </div>
+        );
+    }
 }
+
+// Export the BEM-Wrapped Component with the samename as the .js file
+const BEMSquare = Object.freeze(withBEM(Square));
+export { BEMSquare as Square };
+export { BEMSquare as default };
