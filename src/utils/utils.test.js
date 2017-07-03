@@ -1,9 +1,5 @@
-import { BEMcombine, castArray, getComponentName } from './utils';
+import { castArray, getComponentName, getDisplayName } from './utils';
 import TestBase from './TestBase';
-
-const testDomain = `wsh`;
-const testComponents = [`Parent`, `Child`, `Grandchild`];
-const testStatus = [`active`, `highlighted`];
 
 describe(`castArray`, () => {
     it('should leave arrays unchanged', () => {
@@ -27,24 +23,12 @@ describe(`castArray`, () => {
     });
 });
 
-describe(`BEMcombine`, () => {
-    it(`should return an empty string if passed nothing`, () => {
-        expect(BEMcombine()).toEqual(undefined);
-    });
+describe(`getDisplayName`, () => {
+    it (`should return a component name or Component`, () => {
+        const testee = new TestBase;
 
-    it(`should return an empty string if only passed a domain`, () => {
-        expect(BEMcombine(testDomain)).toEqual(undefined);
-    });
-
-    it(`should concatenate a domain, if present, with an array of component names in parent-child-child order`, () => {
-        expect(BEMcombine(testDomain, testComponents)).toEqual(`wsh-Parent-Child-Grandchild`);
-        expect(BEMcombine(``, testComponents)).toEqual(`Parent-Child-Grandchild`);
-    });
-
-    it(`should concatenate a domain, if present with an array of component names and statuses in order`, () => {
-        expect(BEMcombine(testDomain, testComponents, testStatus)).toEqual(`wsh-Parent-Child-Grandchild--active--highlighted`);
-        expect(BEMcombine(``, testComponents, testStatus)).toEqual(`Parent-Child-Grandchild--active--highlighted`);
-    });
+        expect(getDisplayName(testee)).toEqual(`Test Component`);
+    })
 });
 
 describe(`getComponentName`, () => {
@@ -74,9 +58,10 @@ describe(`getComponentName`, () => {
     it(`should handle rendered extended components correctly`, () => {
         // When running npm start, some class pattern constructors get replaced with
         // function pattern constructors. So components will pass the smoke test for
-        // rendering correctly in the test suite, while failing to actually render
+        // rendering correctly in the test suite, while failing to actually render.
         //
-        // I don't know how to recreate this behavior in the test suite, so this test
-        // does nothing but serve as a reminder.
+        // I don't know how to recreate this behavior in the test suite (even creating
+        // and rendering the app doesn't trigger the error, so this testdoes nothing
+        // but serve as a reminder.
     });
 });
