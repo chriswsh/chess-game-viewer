@@ -1,7 +1,7 @@
 // I do the BEM thing
 import React, { Component } from 'react';
 import { curry } from 'lodash';
-import { castArray, getDisplayName, getComponentName } from './utils';
+import { castArray, getComponentName } from './utils';
 
 // I am the BEM domain to prefix
 const BEM_DOMAIN = `wsh`;
@@ -29,7 +29,7 @@ export const BEMFullCombine = (domain, components, states) => {
 // I am a curried version of BEMFullCombine which already has the domain prefixed
 export const BEMCombineClassState = curry(BEMFullCombine)(BEM_DOMAIN);
 
-// I wrap a component with 
+// I wrap a component with BEM functionality
 export function withBEM(WrappedComponent) {
     return class extends Component {
         constructor(props) {
@@ -41,8 +41,13 @@ export function withBEM(WrappedComponent) {
             let parentChain = getComponentName(WrappedComponent);
 
             if (this.props) {
+                // handle arrays
                 if (this.props.BEMparents && Array.isArray(this.props.BEMparents)) {
                     parentChain = this.props.BEMparents.concat(parentChain);
+                }
+                // handle space-separated lists
+                if (this.props.BEMparents && !Array.isArray(this.props.BEMparents)) {
+                    parentChain = this.props.BEMparents.toString().split(` `).concat(parentChain);
                 }
             }
 
@@ -51,7 +56,10 @@ export function withBEM(WrappedComponent) {
 
         BEMFullClass() {
             if (this.props) {
+                // handle arrays
                 if (this.props.BEMmodifiers && Array.isArray(this.props.BEMmodifiers)) return this.BEMCombineState()(this.props.BEMmodifiers);
+                // handle space-separated lists
+                if (this.props.BEMmodifiers && !Array.isArray(this.props.BEMmodifiers)) return this.BEMCombineState()(this.props.BEMmodifiers.toString().split(` `));
             }
             return this.BEMCombineState()([]);
         }
