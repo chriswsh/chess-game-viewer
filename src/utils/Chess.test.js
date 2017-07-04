@@ -37,3 +37,93 @@ describe(`squareColor()`, () => {
         expect(squareIds.map(Chess.squareColor)).toEqual(colors);
     });
 });
+
+describe(`getPieceColor()`, () => {
+    it (`should return undefined when passed non-strings`, () => {
+        expect(Chess.getPieceColor(null)).toEqual(undefined);
+        expect(Chess.getPieceColor(undefined)).toEqual(undefined);
+        expect(Chess.getPieceColor(true)).toEqual(undefined);
+        expect(Chess.getPieceColor(Infinity)).toEqual(undefined);
+        expect(Chess.getPieceColor(Symbol(`test`))).toEqual(undefined);
+        expect(Chess.getPieceColor(() => {})).toEqual(undefined);
+        expect(Chess.getPieceColor({})).toEqual(undefined);
+    });
+
+    it (`should return 'dark' when passed a string beginning with 'b' or 'B'`, () => {
+        expect(Chess.getPieceColor('b')).toEqual(`dark`);
+        expect(Chess.getPieceColor('B')).toEqual(`dark`);
+        expect(Chess.getPieceColor('basddf')).toEqual(`dark`);
+        expect(Chess.getPieceColor('B23f32')).toEqual(`dark`);
+    });
+
+    it (`should return 'light' when passed a string beginning with 'w' or 'W'`, () => {
+        expect(Chess.getPieceColor('w')).toEqual(`light`);
+        expect(Chess.getPieceColor('W')).toEqual(`light`);
+        expect(Chess.getPieceColor('wasddf')).toEqual(`light`);
+        expect(Chess.getPieceColor('W23f32')).toEqual(`light`);
+    });
+
+    it (`should return undefined when passed any other string`, () => {
+        expect(Chess.getPieceColor(``)).toEqual(undefined);
+        expect(Chess.getPieceColor('test')).toEqual(undefined);
+    });
+});
+
+describe(`getPieceName()`, () => {
+    it (`should return undefined when passed non-strings`, () => {
+        expect(Chess.getPieceName(null)).toEqual(undefined);
+        expect(Chess.getPieceName(undefined)).toEqual(undefined);
+        expect(Chess.getPieceName(true)).toEqual(undefined);
+        expect(Chess.getPieceName(Infinity)).toEqual(undefined);
+        expect(Chess.getPieceName(Symbol(`test`))).toEqual(undefined);
+        expect(Chess.getPieceName(() => {})).toEqual(undefined);
+        expect(Chess.getPieceName({})).toEqual(undefined);
+    });
+
+    it (`should return 'king' when passed a string beginning with a second character 'k' or 'K'`, () => {
+        expect(Chess.getPieceName('Bk')).toEqual(`king`);
+        expect(Chess.getPieceName('bK')).toEqual(`king`);
+        expect(Chess.getPieceName('bksddf')).toEqual(`king`);
+        expect(Chess.getPieceName('BK3f32')).toEqual(`king`);
+    });
+
+    it (`should return 'queen' when passed a string beginning with a second character 'q' or 'Q'`, () => {
+        expect(Chess.getPieceName('Bq')).toEqual(`queen`);
+        expect(Chess.getPieceName('bQ')).toEqual(`queen`);
+        expect(Chess.getPieceName('bqsddf')).toEqual(`queen`);
+        expect(Chess.getPieceName('BQ3f32')).toEqual(`queen`);
+    });
+
+    it (`should return 'rook' when passed a string beginning with a second character 'r' or 'R'`, () => {
+        expect(Chess.getPieceName('Br')).toEqual(`rook`);
+        expect(Chess.getPieceName('bR')).toEqual(`rook`);
+        expect(Chess.getPieceName('brsddf')).toEqual(`rook`);
+        expect(Chess.getPieceName('BR3f32')).toEqual(`rook`);
+    });
+
+    it (`should return 'bishop' when passed a string beginning with a second character 'b' or 'B'`, () => {
+        expect(Chess.getPieceName('Bb')).toEqual(`bishop`);
+        expect(Chess.getPieceName('bB')).toEqual(`bishop`);
+        expect(Chess.getPieceName('bbsddf')).toEqual(`bishop`);
+        expect(Chess.getPieceName('BB3f32')).toEqual(`bishop`);
+    });
+
+    it (`should return 'knight' when passed a string beginning with a second character 'n' or 'N'`, () => {
+        expect(Chess.getPieceName('Bn')).toEqual(`knight`);
+        expect(Chess.getPieceName('bN')).toEqual(`knight`);
+        expect(Chess.getPieceName('bnsddf')).toEqual(`knight`);
+        expect(Chess.getPieceName('BN3f32')).toEqual(`knight`);
+    });
+
+    it (`should return 'pawn' when passed a string beginning with a second character 'p' or 'P'`, () => {
+        expect(Chess.getPieceName('Bp')).toEqual(`pawn`);
+        expect(Chess.getPieceName('bP')).toEqual(`pawn`);
+        expect(Chess.getPieceName('bpsddf')).toEqual(`pawn`);
+        expect(Chess.getPieceName('BP3f32')).toEqual(`pawn`);
+    });
+
+    it (`should return undefined when passed any other string`, () => {
+        expect(Chess.getPieceName(``)).toEqual(undefined);
+        expect(Chess.getPieceName('test')).toEqual(undefined);
+    });
+});

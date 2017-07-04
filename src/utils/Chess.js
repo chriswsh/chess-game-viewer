@@ -15,5 +15,42 @@ export function squareColor(i) {
     return color ? `dark` : `light`;
 }
 
-const Chess = Object.freeze({ algebraicName, squareColor });
+// I return the piece color (`light` or `dark) from a two letter piece code
+export function getPieceColor(piece) {
+    if (typeof piece !== `string`) return undefined;
+
+    switch(piece.substr(0,1).toUpperCase()) {
+        case `B`:
+            return `dark`;
+        case `W`:
+            return `light`;
+        default:
+            return undefined;
+    }
+}
+
+// I return the piece name (`king`, `queen`, `rook`, bishop`, `knight` or `pawn)
+// from a two letter piece code
+export function getPieceName(piece) {
+    if (typeof piece !== `string`) return undefined;
+
+    switch(piece.substr(1,1).toUpperCase()) {
+        case `K`:
+            return `king`;
+        case `Q`:
+            return `queen`;
+        case `R`:
+            return `rook`;
+        case `B`:
+            return `bishop`;
+        case `N`:
+            return `knight`;
+        case `P`:
+            return `pawn`;
+        default:
+            return undefined;
+    }
+}
+
+const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName });
 export default Chess;

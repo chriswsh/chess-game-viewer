@@ -13,6 +13,7 @@ class Chessboard extends Component {
                 BEMmodifiers = {[Chess.squareColor(i)]}
                 key = {i}
                 id = {Chess.algebraicName(i)}
+                piece = "WN"
             />
         );
     }
