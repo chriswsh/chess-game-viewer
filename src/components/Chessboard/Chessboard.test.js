@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow, render, mount } from 'enzyme';
 import Chessboard from './Chessboard';
 
 it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Chessboard />, div);
+    const rendered = mount(<Chessboard />);
 });
