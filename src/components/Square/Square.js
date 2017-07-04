@@ -2,9 +2,6 @@ import './Square.css';
 
 import React, { Component } from 'react';
 import { withBEM } from '../../utils/BEM';
-import Piece from '../Piece/Piece';
-
-const componentTree = [`Square`];
 
 class Square extends Component {
     constructor(props) {
@@ -13,8 +10,8 @@ class Square extends Component {
 
     render() {
         return (
-            <div className={this.props.BEMclass}>
-                {this.props.id}
+            <div className={this.props.BEMclass} id={this.props.id}>
+                <Piece piece={ this.props.piece } />
             </div>
         );
     }
