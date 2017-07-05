@@ -94,11 +94,11 @@ describe(`getPieceName()`, () => {
         expect(Chess.getPieceName('BQ3f32')).toEqual(`queen`);
     });
 
-    it (`should return 'rook' when passed a string beginning with a second character 'r' or 'R'`, () => {
-        expect(Chess.getPieceName('Br')).toEqual(`rook`);
-        expect(Chess.getPieceName('bR')).toEqual(`rook`);
-        expect(Chess.getPieceName('brsddf')).toEqual(`rook`);
-        expect(Chess.getPieceName('BR3f32')).toEqual(`rook`);
+    it (`should return 'tower' when passed a string beginning with a second character 'r' or 'R'`, () => {
+        expect(Chess.getPieceName('Br')).toEqual(`tower`);
+        expect(Chess.getPieceName('bR')).toEqual(`tower`);
+        expect(Chess.getPieceName('brsddf')).toEqual(`tower`);
+        expect(Chess.getPieceName('BR3f32')).toEqual(`tower`);
     });
 
     it (`should return 'bishop' when passed a string beginning with a second character 'b' or 'B'`, () => {

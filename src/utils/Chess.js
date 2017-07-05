@@ -40,7 +40,7 @@ export function getPieceName(piece) {
         case `Q`:
             return `queen`;
         case `R`:
-            return `rook`;
+            return `tower`;
         case `B`:
             return `bishop`;
         case `N`:
@@ -52,5 +52,17 @@ export function getPieceName(piece) {
     }
 }
 
-const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName });
+export function initialBoard() {
+     return [ `BR`, `BN`, `BB`, `BQ`, `BK`, `BB`, `BN`, `BR`,
+              `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, 
+              ``, ``, ``, ``, ``, ``, ``, ``,
+              ``, ``, ``, ``, ``, ``, ``, ``,
+              ``, ``, ``, ``, ``, ``, ``, ``,
+              ``, ``, ``, ``, ``, ``, ``, ``,
+              `WP`, `WP`, `WP`, `WP`, `WP`, `WP`, `WP`, `WP`,
+              `WR`, `WN`, `WB`, `WQ`, `WK`, `WB`, `WN`, `WR`,
+            ]
+}
+
+const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName, initialBoard });
 export default Chess;
