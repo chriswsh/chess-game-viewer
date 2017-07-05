@@ -8,7 +8,9 @@ import Chess from '../../utils/Chess';
 function Square(props) {
     return (
         <div className={ props.BEMclass } id={ props.id }>
-            <Piece piece={ props.piece } BEMmodifiers={ [Chess.getPieceColor(props.piece)] } />
+            {
+                props.piece ? <Piece piece={ props.piece } BEMmodifiers={ Chess.getPieceColor(props.piece) } /> : null
+            }
         </div>
     );
 }
