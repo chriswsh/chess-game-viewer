@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Chessboard from '../Chessboard/Chessboard';
+import ChessHeader from '../ChessHeader/ChessHeader';
+import ChessControls from '../ChessControls/ChessControls';
+import ChessMoveList from '../ChessMoveList/ChessMoveList';
 import Chess from '../../utils/Chess'
 
 class ChessViewer extends Component {
@@ -16,7 +19,12 @@ class ChessViewer extends Component {
 
     render() {
         return (
-            <Chessboard board={this.state.board} />
+            <div>
+                <ChessHeader player1={ this.state.player1 } player2={ this.state.player2 } />
+                <Chessboard board={ this.state.board } />
+                <ChessControls />
+                <ChessMoveList />
+            </div>
         );
     }
 }
