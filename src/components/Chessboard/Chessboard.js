@@ -10,10 +10,10 @@ class Chessboard extends Component {
     renderSquare(i) {
         return (
             <Square
-                BEMmodifiers = {[Chess.squareColor(i)]}
-                key = {i}
-                id = {Chess.algebraicName(i)}
-                piece = "WN"
+                BEMmodifiers = { [Chess.squareColor(i)] }
+                key = { i }
+                id = { Chess.algebraicName(i) }
+                piece = { this.props.board[i] }
             />
         );
     }
@@ -31,6 +31,10 @@ class Chessboard extends Component {
             </div>
         );
     }
+}
+
+Chessboard.defaultProps = {
+    board: Chess.initialBoard()
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
