@@ -1,10 +1,12 @@
+import './ChessHeader.css';
+
 import React, { Component } from 'react';
 import { withBEM } from '../../utils/BEM';
 
 function ChessHeader(props) {
     return (
         <div className={ props.BEMclass }>
-            <h1>{ `${props.player1} vs. ${props.player2}` }</h1>
+            <h2>{ `${props.player1}-${props.player2}` }</h2>
         </div>
     );
 }
