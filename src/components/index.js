@@ -1,1 +1,1 @@
-export { default as Chessboard } from './Chessboard/Chessboard';
+export { default as ChessViewer } from './ChessViewer/ChessViewer';
