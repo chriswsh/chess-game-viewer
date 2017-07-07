@@ -1,0 +1,14 @@
+@import 'scss/partials/_color.scss';
+
+.wsh-ChessMove {
+    width: 100%;
+    padding: 0.5em;
+}
+
+.wsh-ChessMove:nth-child(odd) {
+    background-color: $light-square;
+}
+
+.wsh-ChessMove:nth-child(even) {
+    background-color: $dark-square;
+}

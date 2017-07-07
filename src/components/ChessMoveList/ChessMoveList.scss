@@ -1,0 +1,11 @@
+@import 'scss/partials/_color.scss';
+@import 'scss/partials/_settings.scss';
+
+.wsh-ChessMoveList {
+    color: $primary-font-color;
+    border: 1px solid $dark-square;
+    width: $board-width;
+
+    display: flex;
+    flex-flow: row wrap;
+}

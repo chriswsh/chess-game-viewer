@@ -12,7 +12,8 @@ class ChessViewer extends Component {
         this.state = { 
             player1: `Anonymous`,
             player2: `Anonymous`,
-            move: `1`,
+            currentMove: `1`,
+            moveList: `e4 e5 Nf3 Nc6 Bc4 Bc5 0-0 Nf6 Nc3`.split(` `),
             board: Chess.initialBoard()
         }
     }
@@ -23,7 +24,7 @@ class ChessViewer extends Component {
                 <ChessHeader player1={ this.state.player1 } player2={ this.state.player2 } />
                 <Chessboard board={ this.state.board } />
                 <ChessControls />
-                <ChessMoveList />
+                <ChessMoveList current={ this.state.currentMove } moveList={ this.state.moveList } />
             </div>
         );
     }
