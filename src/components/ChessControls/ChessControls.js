@@ -1,10 +1,16 @@
+import './ChessControls.css';
+
 import React, { Component } from 'react';
+import ChessButton from '../ChessButton/ChessButton';
 import { withBEM } from '../../utils/BEM';
 
 function ChessControls(props) {
     return (
-        <div className={ props.BEMclass }>
-            <h1>Buttons!</h1>
+        <div className={ `btn-group ${props.BEMclass}` }>
+            <ChessButton command={ `first` } glyph={ `fast-backward` } />
+            <ChessButton command={ `previous` } glyph={ `backward` } />
+            <ChessButton command={ `next` } glyph={ `forward` } />
+            <ChessButton command={ `last` } glyph={ `fast-forward` } />
         </div>
     );
 }

@@ -1,0 +1,8 @@
+@import 'scss/partials/_settings.scss';
+
+.wsh-ChessControls {
+    width: $board-width;
+    margin: 0.5em 0;
+    display: flex;
+    flex-flow: row wrap;
+}

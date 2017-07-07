@@ -1,9 +1,10 @@
 @import 'scss/partials/_color.scss';
+@import 'scss/partials/_settings.scss';
 
 .wsh-Chessboard {
     /* border: 2px solid $lowlight; this offsets spacing - fix later */
-    width: 24em;
-    height: 24em;
+    width: $board-width;
+    height: $board-height;
     display: flex;
     flex-flow: row wrap;
 }

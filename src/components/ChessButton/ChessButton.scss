@@ -1,0 +1,25 @@
+@import 'scss/partials/_color.scss';
+
+.wsh-ChessButton {
+    background-color: $primary-font-color;
+    border-color: $lowlight;
+    color: $highlight;
+    width: 25%;
+}
+
+.wsh-ChessButton:focus, .wsh-ChessButton:active:focus, .wsh-ChessButton.active:focus {
+    color: $light-square;
+    background-color: $primary-font-color; /* change here for while clicking effects */
+}
+
+.wsh-ChessButton:hover, .wsh-ChessButton:focus, .wsh-ChessButton:active, .wsh-ChessButton.active {
+    color: $light-square;
+    background-color: $primary-font-color;
+    border-color: $lowlight;
+}
+ 
+.wsh-ChessButton:active, .wsh-ChessButton.active {
+    color: $light-square;
+    background-color: $primary-font-color;
+    border-color: $lowlight;
+}
