@@ -5,7 +5,5 @@
     color: $primary-font-color;
     border: 1px solid $dark-square;
     width: $board-width;
-
-    display: flex;
-    flex-flow: row wrap;
+    border-radius: $move-list-border-radius;
 }

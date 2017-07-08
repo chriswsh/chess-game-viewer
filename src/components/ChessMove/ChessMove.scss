@@ -1,14 +1,37 @@
 @import 'scss/partials/_color.scss';
+@import 'scss/partials/_settings.scss';
 
 .wsh-ChessMove {
     width: 100%;
     padding: 0.5em;
-}
-
-.wsh-ChessMove:nth-child(odd) {
     background-color: $light-square;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    div {
+        flex-grow: 1;
+    }
+    
+    /* This should always be the chess move number */
+    div:first-child {
+        flex-grow: 0;
+        padding: 0 0.75em 0 0;
+        width: 2.5em;
+        text-align: right;
+    }
+
+    div.highlight {
+        font-weight: bold;
+    }
 }
 
-.wsh-ChessMove:nth-child(even) {
-    background-color: $dark-square;
+.wsh-ChessMove:first-child {
+    border-top-left-radius: $move-list-border-radius;
+    border-top-right-radius: $move-list-border-radius;
+}
+
+.wsh-ChessMove:last-child {
+    border-bottom-left-radius: $move-list-border-radius;
+    border-bottom-right-radius: $move-list-border-radius;
 }

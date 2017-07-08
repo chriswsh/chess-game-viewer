@@ -6,9 +6,9 @@ import { withBEM } from '../../utils/BEM';
 
 class ChessMoveList extends Component {
     // I render an individual move
-    renderMove(move, first, second = ``) {
+    renderMove(move, first, second = ``, highlight) {
         return (
-            <ChessMove key={ move } move={ move } first={ first } second={ second }/>
+            <ChessMove key={ move } move={ move } first={ first } second={ second } highlight={ highlight } />
         );
     }
 
@@ -16,7 +16,11 @@ class ChessMoveList extends Component {
         const moves = [];
         
         for (let i = 0; i < this.props.moveList.length; i += 2) {
-            moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1]));
+            if (this.props.current > i && this.props.current <= i + 2) {
+                moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1], Math.floor(i % 2)));
+            } else {
+                moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1]));
+            }
         }
 
         return (
@@ -28,7 +32,8 @@ class ChessMoveList extends Component {
 }
 
 ChessMoveList.defaultProps = {
-    moveList: []
+    moveList: [],
+    current: 0
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
