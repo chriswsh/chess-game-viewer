@@ -6,13 +6,13 @@ import { withBEM } from '../../utils/BEM';
 function ChessMove(props) {
     return (
         <div className={ props.BEMclass }>
-            <div className={ props.highlight !== undefined ? `highlight` : undefined }>{props.move}.</div>
+            <div className={ props.focus !== undefined ? `focus` : undefined }>{props.move}.</div>
             <div
-                className={ props.highlight === 0 ? `highlight` : undefined }
+                className={ props.focus === 0 ? `focus` : undefined }
                 >{props.first}
             </div>
             <div
-                className={ props.highlight === 1 ? `highlight` : undefined }
+                className={ props.focus === 1 ? `focus` : undefined }
                 >{props.second}
             </div>
         </div>

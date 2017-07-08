@@ -6,9 +6,9 @@ import { withBEM } from '../../utils/BEM';
 
 class ChessMoveList extends Component {
     // I render an individual move
-    renderMove(move, first, second = ``, highlight) {
+    renderMove(move, first, second = ``, focus) {
         return (
-            <ChessMove key={ move } move={ move } first={ first } second={ second } highlight={ highlight } />
+            <ChessMove key={ move } move={ move } first={ first } second={ second } focus={ focus } />
         );
     }
 
