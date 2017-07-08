@@ -14,10 +14,10 @@ class ChessMoveList extends Component {
 
     render() {
         const moves = [];
-        
+
         for (let i = 0; i < this.props.moveList.length; i += 2) {
             if (this.props.current > i && this.props.current <= i + 2) {
-                moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1], Math.floor(i % 2)));
+                moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1], (this.props.current - 1) % 2));
             } else {
                 moves.push(this.renderMove(i / 2 + 1, this.props.moveList[i], this.props.moveList[i+1]));
             }
