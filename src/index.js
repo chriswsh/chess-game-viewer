@@ -4,10 +4,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-let store = createStore(() => {});
+import chessViewerReducer from './reducers/chessViewerReducer';
+import App from './App';
+
+let store = createStore(chessViewerReducer);
 
 ReactDOM.render(
     <Provider store={ store }>
