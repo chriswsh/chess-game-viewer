@@ -7,20 +7,22 @@ import ChessControls from '../ChessControls/ChessControls';
 import ChessMoveList from '../ChessMoveList/ChessMoveList';
 import Chess from '../../utils/Chess';
 
+import { loadMoveList } from '../../reducers/actions.js';
+
 const mapStateToProps = state => {
     return Object.assign({}, state);
 }
 
 class ChessViewer extends Component {
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        console.log(this.props.dispatch(loadMoveList(`e4 e5 Nf3 Nc6 Bc4 Bc5 0-0 Nf6 Nc3`.split(` `))));
     }
 
     render() {
         return (
             <div>
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />
-                <Chessboard board={ this.props.board } />
+                <Chessboard board={ this.props.history[this.props.currentMove] } />
                 <ChessControls />
                 <ChessMoveList current={ this.props.currentMove } moveList={ this.props.moveList } />
             </div>
