@@ -12,6 +12,7 @@ const initialState = {
 export default function chessViewerReducer(state = initialState, action) {
     switch (action.type) {
         case ACTIONS.LOAD_MOVE_LIST:
+            if (!Array.isArray(action.moveList)) action.moveList = [];
             return Object.assign({}, state, { moveList: action.moveList });
         default:
             return state;
