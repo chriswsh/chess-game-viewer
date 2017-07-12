@@ -5,6 +5,7 @@
   "url": "https://github.com/chriswsh/chess-game-viewer",
   "private": true,
   "dependencies": {
+    "chess.js": "^0.10.2",
     "lodash": "^4.17.4",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.0.2",
@@ -31,6 +32,8 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ]
   }
 }
