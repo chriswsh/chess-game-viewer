@@ -52,17 +52,5 @@ export function getPieceName(piece) {
     }
 }
 
-export function initialBoard() {
-     return [ `BR`, `BN`, `BB`, `BQ`, `BK`, `BB`, `BN`, `BR`,
-              `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, `BP`, 
-              ``, ``, ``, ``, ``, ``, ``, ``,
-              ``, ``, ``, ``, ``, ``, ``, ``,
-              ``, ``, ``, ``, ``, ``, ``, ``,
-              ``, ``, ``, ``, ``, ``, ``, ``,
-              `WP`, `WP`, `WP`, `WP`, `WP`, `WP`, `WP`, `WP`,
-              `WR`, `WN`, `WB`, `WQ`, `WK`, `WB`, `WN`, `WR`,
-            ]
-}
-
-const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName, initialBoard });
+const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName });
 export default Chess;

@@ -34,7 +34,7 @@ class Chessboard extends Component {
 }
 
 Chessboard.defaultProps = {
-    board: Chess.initialBoard()
+    board: []
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
