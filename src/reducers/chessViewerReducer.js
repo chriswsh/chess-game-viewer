@@ -19,6 +19,8 @@ export default function chessViewerReducer(state = initialState, action) {
             return Object.assign({}, state, { history: state.history.concat(action.board) });
         case ACTIONS.CHANGE_HEADER:
             return Object.assign({}, state, { player1: action.player1, player2: action.player2 });
+        case ACTIONS.SET_MOVE:
+            return Object.assign({}, state, { currentMove: action.moveNumber });
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import Chess from 'chess.js';
 
 import Chessboard from '../Chessboard/Chessboard';
 import ChessHeader from '../ChessHeader/ChessHeader';
-import ChessControls from '../ChessControls/ChessControls';
+import ChessControlsContainer from '../ChessControlsContainer/ChessControlsContainer';
 import ChessMoveList from '../ChessMoveList/ChessMoveList';
 
 import { loadMoveList, addPreviousBoard, changeHeader } from '../../reducers/actions.js';
@@ -82,7 +82,7 @@ class ChessViewer extends Component {
             <div>
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />
                 <Chessboard board={ this.props.history[this.props.currentMove] } />
-                <ChessControls />
+                <ChessControlsContainer />
                 <ChessMoveList current={ this.props.currentMove } moveList={ this.props.moveList } />
             </div>
         );
