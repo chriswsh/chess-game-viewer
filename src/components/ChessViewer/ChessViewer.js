@@ -34,8 +34,17 @@ const mapStateToProps = state => {
 class ChessViewer extends Component {
     componentDidMount() {
         // The unit tests fail unless it's new Chess.Chess(),
-        // but the dev server faults when it is new Chess.Chess()
-        const chess = new Chess();
+        // but the dev server faults when it is new Chess.Chess(),
+        // so let's try both. This issue be indicative of how different
+        // environments might react.
+        let chess;
+
+        try {
+            chess = new Chess();
+        }
+        catch (e) {
+            chess = new Chess.Chess();
+        }
 
         // Sample PGN
         const PGN =
