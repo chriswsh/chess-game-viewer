@@ -2,6 +2,11 @@
 
 .wsh-Piece--light {
     color: $light-piece;
+    text-shadow:
+    -1px -1px 0 $primary-font-color,
+    1px -1px 0 $primary-font-color,
+    -1px 1px 0 $primary-font-color,
+    1px 1px 0 $primary-font-color;
 }
 
 .wsh-Piece--dark {
