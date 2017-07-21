@@ -5,6 +5,14 @@ import ChessMove from '../ChessMove/ChessMove';
 import { withBEM } from '../../utils/BEM';
 
 class ChessMoveList extends Component {
+    // The child ChessMove components scroll themselves, but we need to handle reset to the game beginning
+    // this.props.current = 0
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.current !== this.props.current && this.props.current === 0) {
+            this.myDiv.scrollTop = 0;
+        }
+    }
+
     // I render an individual move
     renderMove(move, first, second = ``, focus) {
         return (
@@ -24,7 +32,7 @@ class ChessMoveList extends Component {
         }
 
         return (
-            <div className={ this.props.BEMclass }>
+            <div className={ this.props.BEMclass } ref={ (me) => { this.myDiv = me } }>
                 { moves }
             </div>
         );

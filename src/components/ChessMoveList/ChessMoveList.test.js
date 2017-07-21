@@ -2,11 +2,14 @@ import React from 'react';
 import { shallow, render, mount } from 'enzyme';
 import ChessMoveList from './ChessMoveList';
 
-it('renders without crashing', () => {
+// Prevent scrollIntoView for child components from failing
+window.HTMLElement.prototype.scrollIntoView = () => {};
+
+it(`renders without crashing`, () => {
     const rendered = mount(<ChessMoveList />);
 });
 
-it('passes a highlight prop of 0 if this.props.current is odd', () => {
+it(`passes a focus prop of 0 if this.props.current is odd`, () => {
     const wrapper = mount(<ChessMoveList moveList={ [`e4`, `e5`, `d4`, `d5`, `c4`, `c5`] } current={1} />);
     expect(wrapper.find(`ChessMove`).at(0).props().focus).toEqual(0);
 
@@ -17,7 +20,7 @@ it('passes a highlight prop of 0 if this.props.current is odd', () => {
     expect(wrapper.find(`ChessMove`).at(2).props().focus).toEqual(0);
 });
 
-it('passes a highlight prop of 1 if this.prop.current is even', () => {
+it(`passes a focus prop of 1 if this.prop.current is even`, () => {
     const wrapper = mount(<ChessMoveList moveList={[`e4`, `e5`, `d4`, `d5`, `c4`, `c5`]} current={2} />);
     expect(wrapper.find(`ChessMove`).at(0).props().focus).toEqual(1);
 
@@ -26,4 +29,15 @@ it('passes a highlight prop of 1 if this.prop.current is even', () => {
 
     wrapper.setProps({ current: 6 });
     expect(wrapper.find(`ChessMove`).at(2).props().focus).toEqual(1);
+});
+
+it(`should set scrollTop to 0 when setting current to 0 from some other value`, () => {
+    const wrapper = mount(<ChessMoveList moveList={[`e4`, `e5`, `d4`, `d5`, `c4`, `c5`]} current={2} />);
+
+    // Simulate scrolling down
+    wrapper.find(`ChessMoveList`).getNode().myDiv.scrollTop = 500;
+    expect(wrapper.find(`ChessMoveList`).getNode().myDiv.scrollTop).toEqual(500);
+
+    wrapper.setProps({ current: 0 });
+    expect(wrapper.find(`ChessMoveList`).getNode().myDiv.scrollTop).toEqual(0);
 });
