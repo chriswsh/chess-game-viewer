@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Navbar, Grid, Row, Col } from 'react-bootstrap';
-import { ChessViewer } from './components/index';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { ChessViewer, AppHeader } from './components/index';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -13,13 +13,7 @@ class InnerApp extends Component {
     render() {
         return (
             <div>
-                <Navbar>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            Chess PGN Viewer
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                </Navbar>
+                <AppHeader />
                 <Grid>
                     <Row className="show-grid">
                         <Col xs={12} md={12}>
