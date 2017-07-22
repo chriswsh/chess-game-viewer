@@ -2,19 +2,17 @@ import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createBrowserHistory, createHashHistory } from 'history';
+
 import registerServiceWorker from './registerServiceWorker';
 
-import chessViewerReducer from './reducers/chessViewerReducer';
-import App from './App';
+import Routes from './routes';
 
-let store = createStore(chessViewerReducer);
+const history = createBrowserHistory();
+// const oldHistory = createHashHistory();
 
 ReactDOM.render(
-    <Provider store={ store }>
-        <App />
-    </Provider>,
+    <Routes history={ history } />,
     document.getElementById('root')
 );
 registerServiceWorker();
