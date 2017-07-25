@@ -45,6 +45,6 @@ ChessMoveList.defaultProps = {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMChessMoveList = Object.freeze(withBEM(ChessMoveList));
+const BEMChessMoveList = Object.freeze(withBEM(ChessMoveList, `ChessMoveList`));
 export { BEMChessMoveList as ChessMoveList };
 export { BEMChessMoveList as default };

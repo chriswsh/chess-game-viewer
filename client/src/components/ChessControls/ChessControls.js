@@ -26,6 +26,6 @@ class ChessControls extends Component {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMChessControls = Object.freeze(withBEM(ChessControls));
+const BEMChessControls = Object.freeze(withBEM(ChessControls, `ChessControls`));
 export { BEMChessControls as ChessControls };
 export { BEMChessControls as default };

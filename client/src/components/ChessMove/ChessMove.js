@@ -31,6 +31,6 @@ class ChessMove extends Component {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMChessMove = Object.freeze(withBEM(ChessMove));
+const BEMChessMove = Object.freeze(withBEM(ChessMove, `ChessMove`));
 export { BEMChessMove as ChessMove };
 export { BEMChessMove as default };

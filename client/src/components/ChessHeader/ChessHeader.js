@@ -12,6 +12,6 @@ function ChessHeader(props) {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMChessHeader = Object.freeze(withBEM(ChessHeader));
+const BEMChessHeader = Object.freeze(withBEM(ChessHeader, `ChessHeader`));
 export { BEMChessHeader as ChessHeader };
 export { BEMChessHeader as default };

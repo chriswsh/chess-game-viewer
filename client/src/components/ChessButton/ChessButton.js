@@ -22,6 +22,6 @@ function ChessButton(props) {
 }
 
 // Export the BEM-Wrapped, Redux-Connected Component with the samename as the .js file
-const BEMChessButton = Object.freeze(connect(undefined, mapDispatchToProps)(withBEM(ChessButton)));
+const BEMChessButton = Object.freeze(connect(undefined, mapDispatchToProps)(withBEM(ChessButton, `ChessButton`)));
 export { BEMChessButton as ChessButton };
 export { BEMChessButton as default };

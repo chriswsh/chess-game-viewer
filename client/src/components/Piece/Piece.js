@@ -16,6 +16,6 @@ function Piece(props) {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMPiece = Object.freeze(withBEM(Piece));
+const BEMPiece = Object.freeze(withBEM(Piece, `Piece`));
 export { BEMPiece as Piece };
 export { BEMPiece as default };

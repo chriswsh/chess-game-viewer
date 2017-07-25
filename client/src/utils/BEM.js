@@ -30,15 +30,15 @@ export const BEMFullCombine = (domain, components, states) => {
 export const BEMCombineClassState = curry(BEMFullCombine)(BEM_DOMAIN);
 
 // I wrap a component with BEM functionality
-export function withBEM(WrappedComponent) {
+export function withBEM(WrappedComponent, componentName='noName') {
     return class extends Component {
         constructor(props) {
             super(props);
         }
 
         BEMCombineState() {
-            // Get the wrapped component's name
-            let parentChain = getComponentName(WrappedComponent);
+            // Pass the wrapped component's name in to deal with minified code
+            let parentChain = componentName; // getComponentName(WrappedComponent);
 
             if (this.props) {
                 // handle arrays

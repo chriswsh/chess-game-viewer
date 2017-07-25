@@ -38,12 +38,18 @@ describe(`BEMCombineClassState`, () => {
 });
 
 describe(`withBEM()`, () => {
-    const BEMTest = withBEM(TestBase);
+    const BEMTest = withBEM(TestBase, `TestBase`);
 
     it('should successfully render the wrapped component', () => {
         const rendered = render(<BEMTest />);
         expect(rendered.length).toEqual(1);
     });
+
+    it('should pass a BEMclass prop to the wrapped component, default of domain-noName', () => {
+        const BEMDefault = withBEM(TestBase);
+        const BEM = shallow(<BEMDefault />);
+        expect(BEM.find(`TestBase`).props().BEMclass).toEqual(`${getBEMDomain()}-noName`);
+    })
 
     it('should pass a BEMclass prop to the wrapped component, default of domain-ComponentName', () => {
         const BEM = shallow(<BEMTest />);

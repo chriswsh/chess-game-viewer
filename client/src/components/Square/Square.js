@@ -16,6 +16,6 @@ function Square(props) {
 }
 
 // Export the BEM-Wrapped Component with the samename as the .js file
-const BEMSquare = Object.freeze(withBEM(Square));
+const BEMSquare = Object.freeze(withBEM(Square, `Square`));
 export { BEMSquare as Square };
 export { BEMSquare as default };
