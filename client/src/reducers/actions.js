@@ -4,10 +4,12 @@ export const ACTIONS = Object.freeze({
     LOAD_MOVE_LIST: Symbol(`Load Move List`),
     ADD_PREVIOUS_BOARD: Symbol(`Add Previous Board`),
     ADD_NEXT_BOARD: Symbol(`Add Next Board`),
-    CHANGE_HEADER: Symbol(`Change Header`)
+    CHANGE_HEADER: Symbol(`Change Header`),
+    CLEAR_MANIFEST: Symbol(`Clear Manifest`),
+    LOAD_MANIFEST: Symbol(`Load Manifest`)
 });
 
-// Action Creators {
+// Action Creators
 export function setMove(moveNumber = 0) {
     return {
         type: ACTIONS.SET_MOVE,
@@ -43,5 +45,19 @@ export function changeHeader(header) {
         type: ACTIONS.CHANGE_HEADER,
         player1: White,
         player2: Black
+    }
+}
+
+export function clearManifest() {
+    return {
+        type: ACTIONS.CLEAR_MANIFEST,
+        manifest: []
+    }
+}
+
+export function loadManifest(manifest) {
+    return {
+        type: ACTIONS.LOAD_MANIFEST,
+        manifest
     }
 }

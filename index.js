@@ -75,12 +75,23 @@ app.get(`/pgn/:gameId`, (req, res) => {
 1.d4 Nf6 2.c4 g6 3.g3 Bg7 4.Bg2 O-O 5.Nc3 c5 6.e3 Nc6 7.Nge2 d6 8.O-O Bd7
 9.b3 Rb8 10.Bb2 a6 11.dxc5 dxc5 12.Na4 b6 13.Nf4 Na5 14.Be5 Rc8 15.Qc2 Bxa4
 16.bxa4 Nd7 17.Bxg7 Kxg7 18.Bh3 Qe8 19.Qc3+ Kg8 20.Rad1 Rd8 21.Nd5 e6 22.Nxb6 Nxb6
-23.Rxd8 Qxd8 24.Qxa5 Nxc4 25.Qxd8 Rxd8 26.Rc1 Nb2 27.a5 c4 28.Rc2 Rb8 29.Bf1 Rb5  1/2-1/2`
+23.Rxd8 Qxd8 24.Qxa5 Nxc4 25.Qxd8 Rxd8 26.Rc1 Nb2 27.a5 c4 28.Rc2 Rb8 29.Bf1 Rb5  1/2-1/2`,
     ];
 
-    res.send(
-        pgns[req.params.gameId] ? pgns[req.params.gameId] : ``
-    );
+    const manifest = { manifest: [`Bakonyi, Elek vs. Benko, Pal C (1-0)`, 
+                                `Benko, Pal C vs. Fuster, Geza (1-0)`,
+                                `Benko, Pal C vs. Szilagyi, Gyorgy (1-0)`,
+                                `Benko, Pal C vs. Fischer, Robert James (1/2-1/2)`]};
+
+    switch (req.params.gameId) {
+        case `manifest`:
+            res.send(JSON.stringify(manifest));
+            break;
+        default:
+            res.send(
+                pgns[req.params.gameId] ? pgns[req.params.gameId] : ``
+            );
+    }
 });
 
 // The "catchall" handler: for any request that doesn't

@@ -5,7 +5,8 @@ const initialState = {
     player2: `Anonymous`,
     currentMove: 0,
     moveList: [],
-    history: []
+    history: [],
+    manifest: []
 }
 
 export default function chessViewerReducer(state = initialState, action) {
@@ -21,6 +22,10 @@ export default function chessViewerReducer(state = initialState, action) {
             return Object.assign({}, state, { player1: action.player1, player2: action.player2 });
         case ACTIONS.SET_MOVE:
             return Object.assign({}, state, { currentMove: action.moveNumber });
+        case ACTIONS.LOAD_MANIFEST:
+            return Object.assign({}, state, { manifest: action.manifest });
+        case ACTIONS.CLEAR_MANIFEST:
+            return Object.assign({}, state, { manifest: [] });
         default:
             return state;
     }
