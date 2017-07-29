@@ -9,6 +9,9 @@
 # production
 /build
 
+#pgns
+/pgns
+
 # processed scss
 src/**/*.css
 
