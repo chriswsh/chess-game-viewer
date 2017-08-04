@@ -7,8 +7,9 @@ import ChessHeader from '../ChessHeader/ChessHeader';
 import ChessControlsContainer from '../ChessControlsContainer/ChessControlsContainer';
 import ChessMoveList from '../ChessMoveList/ChessMoveList';
 import ChessGameSelector from '../ChessGameSelector/ChessGameSelector';
+import ChessStatusBarContainer from '../ChessStatusBarContainer/ChessStatusBarContainer';
 
-import { loadMoveList, addPreviousBoard, changeHeader, loadManifest } from '../../reducers/actions.js';
+import { loadMoveList, addPreviousBoard, changeHeader, loadManifest, showAlert } from '../../reducers/actions.js';
 
 function convertChessJSPiece(chessJSPiece) {
     if (chessJSPiece === null) return ``;
@@ -58,6 +59,7 @@ class ChessViewer extends Component {
     render() {
         return (
             <div>
+                <ChessStatusBarContainer />
                 <ChessGameSelector />
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />
                 <Chessboard board={ this.props.history[this.props.currentMove] } />

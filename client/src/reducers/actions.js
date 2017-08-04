@@ -6,7 +6,9 @@ export const ACTIONS = Object.freeze({
     ADD_NEXT_BOARD: Symbol(`Add Next Board`),
     CHANGE_HEADER: Symbol(`Change Header`),
     CLEAR_MANIFEST: Symbol(`Clear Manifest`),
-    LOAD_MANIFEST: Symbol(`Load Manifest`)
+    LOAD_MANIFEST: Symbol(`Load Manifest`),
+    HIDE_ALERT: Symbol(`Hide Alert`),
+    SHOW_ALERT: Symbol(`Show Alert`)
 });
 
 // Action Creators
@@ -59,5 +61,21 @@ export function loadManifest(manifest) {
     return {
         type: ACTIONS.LOAD_MANIFEST,
         manifest
+    }
+}
+
+export function showAlert({message=`Default Message`, style=`info`}) {
+    return {
+        type: ACTIONS.SHOW_ALERT,
+        message,
+        style,
+        display: true
+    }
+}
+
+export function hideAlert() {
+    return {
+        type: ACTIONS.HIDE_ALERT,
+        display: false
     }
 }

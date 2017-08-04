@@ -1,6 +1,11 @@
 import { ACTIONS } from './actions'
 
 const initialState = {
+    alerts: {
+        message: ``,
+        style: ``,
+        display: false
+    },
     player1: `Anonymous`,
     player2: `Anonymous`,
     currentMove: 0,
@@ -26,6 +31,10 @@ export default function chessViewerReducer(state = initialState, action) {
             return Object.assign({}, state, { manifest: action.manifest });
         case ACTIONS.CLEAR_MANIFEST:
             return Object.assign({}, state, { manifest: [] });
+        case ACTIONS.SHOW_ALERT:
+            return Object.assign({}, state, { alerts: { message: action.message, style: action.style, display: action.display }});
+        case ACTIONS.HIDE_ALERT:
+            return Object.assign({}, state, { alerts: { display: action.display }});
         default:
             return state;
     }
