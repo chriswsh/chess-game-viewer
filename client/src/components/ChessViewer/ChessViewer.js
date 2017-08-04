@@ -46,26 +46,7 @@ class ChessViewer extends Component {
         catch (e) {
             chess = new Chess.Chess();
         }
-
-        // Fetch sample PGN
-        fetch(`/pgn/1`)
-            .then(res => res.text())
-            .then(PGN => {
-                chess.load_pgn(PGN);
-                // load the move list into the store
-                this.props.dispatch(loadMoveList(chess.history()));
-
-                // load the move history into the store
-                this.props.dispatch(addPreviousBoard(boardToArray(chess)));
-                while (chess.undo()) this.props.dispatch(addPreviousBoard(boardToArray(chess)));
-
-                // load the header information into store
-                this.props.dispatch(changeHeader(chess.header()));
-            })
-            .catch((e) => {
-                // TODO: Add error messaging
-            });
-        
+       
         // Fetch game manifest
         fetch(`/pgn/manifest`)
             .then(res => res.json())

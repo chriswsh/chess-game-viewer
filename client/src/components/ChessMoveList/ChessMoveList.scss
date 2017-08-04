@@ -3,8 +3,10 @@
 
 .wsh-ChessMoveList {
     color: $primary-font-color;
+    background-color: $light-square;
     border: 1px solid $dark-square;
     width: $board-width;
     max-height: 10em;
+    min-height: 5em;
     overflow: auto;
 }
