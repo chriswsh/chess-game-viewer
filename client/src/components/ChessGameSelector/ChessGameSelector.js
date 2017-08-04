@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
+import { showAlert, hideAlert } from '../../reducers/actions';
+
 const mapStateToProps = state => {
     return Object.assign({}, {manifest: state.manifest });
 }
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        loadGame: (game) => { dispatch(showAlert( {message: `Loading game ${game}`, style: `info` })) },
+        clearBoard: () => { dispatch(hideAlert())}
+    };
 }
 
 class ChessGameSelector extends Component {
@@ -17,16 +22,16 @@ class ChessGameSelector extends Component {
 
     renderMenuItem(menuItemText, index) {
         return (
-            <MenuItem eventKey={ index + 1 } key={ index }>{ menuItemText }</MenuItem>
+            <MenuItem eventKey={ index + 1 } key={ index } onClick={ () => { this.props.loadGame(menuItemText) } }>{ menuItemText }</MenuItem>
         );
     }
 
     render() {
         return (
             <DropdownButton title="Choose Game" id="Game Selector">
-                { this.props.manifest.map(this.renderMenuItem) }
+                { this.props.manifest.map(this.renderMenuItem, this) }
                 <MenuItem divider />
-                <MenuItem eventKey="0">Clear Board</MenuItem>
+                <MenuItem eventKey="0" onClick={ () => { this.props.clearBoard() }}>Clear Board</MenuItem>
             </DropdownButton>
         );
     }
