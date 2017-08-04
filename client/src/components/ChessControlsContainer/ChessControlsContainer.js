@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ChessControls from '../ChessControls/ChessControls';
 
-const mapStateToProps = state => {
+const mapStateToProps = fullState => {
+    // get the display subsection
+    const state = fullState.display;
+
     // The history contains the initial board state as move zero,
     // so subtract 1 from the length to correct
     return Object.assign({}, { currentMove: state.currentMove, lastMove: state.history.length ? state.history.length - 1 : 0 })

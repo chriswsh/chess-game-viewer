@@ -30,7 +30,7 @@ function boardToArray(chessJSObject) {
 }
 
 const mapStateToProps = state => {
-    return Object.assign({}, state);
+    return Object.assign({}, state.display);
 }
 
 class ChessViewer extends Component {

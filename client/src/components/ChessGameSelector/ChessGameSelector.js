@@ -5,7 +5,7 @@ import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { showAlert, hideAlert } from '../../reducers/actions';
 
 const mapStateToProps = state => {
-    return Object.assign({}, {manifest: state.manifest });
+    return Object.assign({}, {manifest: state.display.manifest });
 }
 
 const mapDispatchToProps = dispatch => {

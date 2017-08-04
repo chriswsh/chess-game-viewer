@@ -1,4 +1,5 @@
-import { ACTIONS } from './actions'
+import { combineReducers } from 'redux';
+import { ACTIONS } from './actions';
 
 const initialState = {
     alerts: {
@@ -6,18 +7,33 @@ const initialState = {
         style: ``,
         display: false
     },
-    player1: `Anonymous`,
-    player2: `Anonymous`,
-    currentMove: 0,
-    moveList: [],
-    history: [],
-    manifest: []
+    display: {
+        player1: `Anonymous`,
+        player2: `Anonymous`,
+        currentMove: 0,
+        moveList: [],
+        history: [],
+        manifest: []
+    }, 
+    cachedGames: {
+
+    }
 }
 
-export default function chessViewerReducer(state = initialState, action) {
+function alerts(state = initialState.alerts, action) {
+    switch (action.type) {
+        case ACTIONS.SHOW_ALERT:
+            return Object.assign({}, state, { message: action.message, style: action.style, display: action.display });
+        case ACTIONS.HIDE_ALERT:
+            return Object.assign({}, state, { display: action.display });
+        default:
+            return state;
+    }
+}
+
+function display(state = initialState.display, action) {
     switch (action.type) {
         case ACTIONS.LOAD_MOVE_LIST:
-            if (!Array.isArray(action.moveList)) action.moveList = [];
             return Object.assign({}, state, { moveList: action.moveList });
         case ACTIONS.ADD_PREVIOUS_BOARD:
             return Object.assign({}, state, { history: [action.board].concat(state.history) });
@@ -31,11 +47,14 @@ export default function chessViewerReducer(state = initialState, action) {
             return Object.assign({}, state, { manifest: action.manifest });
         case ACTIONS.CLEAR_MANIFEST:
             return Object.assign({}, state, { manifest: [] });
-        case ACTIONS.SHOW_ALERT:
-            return Object.assign({}, state, { alerts: { message: action.message, style: action.style, display: action.display }});
-        case ACTIONS.HIDE_ALERT:
-            return Object.assign({}, state, { alerts: { display: action.display }});
-        default:
-            return state;
+        default: return state;
     }
 }
+
+function cachedGames(state = initialState.cachedGames, action) {
+    switch (action.type) {
+        default: return state;
+    }
+}
+
+export default combineReducers({ alerts, display, cachedGames });
