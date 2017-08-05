@@ -1,4 +1,5 @@
 // Chess themed utilities
+import { default as ChessJS } from 'chess.js';
 
 // I convert a square key (0-63) to the square's name in algebraic notation
 // 0 = top left corner, or a8; 7 = top right corner, or h8
@@ -52,5 +53,57 @@ export function getPieceName(piece) {
     }
 }
 
-const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName });
+/* ChessJS Converters */
+
+// The unit tests fail unless it's new Chess.Chess(),
+// but the dev server faults when it is new Chess.Chess(),
+// so let's try both. This issue be indicative of how different
+// environments might react.
+let chessJS;
+
+try {
+    chessJS = new ChessJS();
+}
+catch (e) {
+    chessJS = new ChessJS.Chess();
+}
+
+export function convertChessJSPiece(chessJSPiece) {
+    if (chessJSPiece === null) return ``;
+
+    return chessJSPiece.color + chessJSPiece.type;
+}
+
+export function convertChessJSBoardToArray(chessJSObject) {
+    const board = [];
+
+    for (let rank = 8; rank > 0; rank--) {
+        for (let file = `a`.charCodeAt(0); file <= `h`.charCodeAt(0); file++) {
+            board.push(chessJSObject.get(String.fromCharCode(file) + rank));
+        }
+    }
+
+    return board.map(convertChessJSPiece);
+}
+
+// I parse a PGN into the object format used by the viewer
+export function parsePGN(pgn) {
+    if (typeof pgn !== `string`) return undefined;
+    if (!chessJS.load_pgn(pgn)) return undefined;
+
+    const moveList = chessJS.history();
+    let history = convertChessJSBoardToArray(chessJS);
+    while (chessJS.undo()) history = [convertChessJSBoardToArray(chessJS)].concat(history);
+    const player1 = chessJS.header().White;
+    const player2 = chessJS.header().Black;
+
+    return {
+        moveList,
+        history,
+        player1,
+        player2
+    }
+}
+
+const Chess = Object.freeze({ algebraicName, squareColor, getPieceColor, getPieceName, convertChessJSPiece, convertChessJSBoardToArray, parsePGN });
 export default Chess;
