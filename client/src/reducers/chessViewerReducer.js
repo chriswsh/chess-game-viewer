@@ -13,7 +13,7 @@ const initialState = {
         currentMove: 0,
         moveList: [],
         history: [],
-        manifest: []
+        manifest: [] // contains { description: `string`, hash: `string` }
     }, 
     cachedGames: {
 

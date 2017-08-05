@@ -1,42 +1,49 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-
-import { showAlert, hideAlert } from '../../reducers/actions';
-
-const mapStateToProps = state => {
-    return Object.assign({}, {manifest: state.display.manifest });
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        loadGame: (game) => { dispatch(showAlert( {message: `Loading game ${game}`, style: `info` })) },
-        clearBoard: () => { dispatch(hideAlert())}
-    };
-}
 
 class ChessGameSelector extends Component {
     constructor(props) {
         super(props);
     }
 
-    renderMenuItem(menuItemText, index) {
+    renderMenuItem(menuItem, index) {
+        const { description, hash } = menuItem;
+
+        if (description === this.props.symbols.divider) {
+            return (<MenuItem divider key={ index } />);
+        } 
+        if (description === this.props.symbols.clear) {
+            return (<MenuItem eventKey="0" key={ index } onClick={ () => { this.props.clearBoard() }}>Clear Board</MenuItem>);
+        }
+        
         return (
-            <MenuItem eventKey={ index + 1 } key={ index } onClick={ () => { this.props.loadGame(menuItemText) } }>{ menuItemText }</MenuItem>
+            <MenuItem eventKey={ index + 1 } key={ hash } onClick={ () => { this.props.loadGame(hash) } }>{ description }</MenuItem>
         );
     }
 
     render() {
         return (
             <DropdownButton title="Choose Game" id="Game Selector">
-                { this.props.manifest.map(this.renderMenuItem, this) }
-                <MenuItem divider />
-                <MenuItem eventKey="0" onClick={ () => { this.props.clearBoard() }}>Clear Board</MenuItem>
+                { this.props.list.map(this.renderMenuItem, this) }
             </DropdownButton>
         );
     }
 }
 
-const ReduxChessGameSelector = Object.freeze(connect(mapStateToProps, mapDispatchToProps)(ChessGameSelector));
-export { ReduxChessGameSelector as ChessGameSelector }
-export { ReduxChessGameSelector as default }
+ChessGameSelector.propTypes = {
+    list: PropTypes.array.isRequired, // list to display
+    loadGame: PropTypes.func.isRequired, // function to load game
+    clearBoard: PropTypes.func.isRequired, // function to clear board
+    symbols: PropTypes.object.isRequired // special symbols
+}
+
+ChessGameSelector.defaultProps = {
+    list: [{ description: `Loading games...`, hash: `0` }], // use nonsensical hash to indicate default value
+    loadGame: () => {},
+    clearBoard: () => {},
+    symbols: {}
+}
+
+export { ChessGameSelector as ChessGameSelector }
+export { ChessGameSelector as default }

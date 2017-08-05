@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Chess from 'chess.js';
+import md5 from 'js-md5';
 
 import Chessboard from '../Chessboard/Chessboard';
 import ChessHeader from '../ChessHeader/ChessHeader';
 import ChessControlsContainer from '../ChessControlsContainer/ChessControlsContainer';
 import ChessMoveList from '../ChessMoveList/ChessMoveList';
-import ChessGameSelector from '../ChessGameSelector/ChessGameSelector';
+import ChessGameSelectorContainer from '../ChessGameSelectorContainer/ChessGameSelectorContainer';
 import ChessStatusBarContainer from '../ChessStatusBarContainer/ChessStatusBarContainer';
 
 import { loadMoveList, addPreviousBoard, changeHeader, loadManifest, showAlert } from '../../reducers/actions.js';
@@ -52,7 +53,12 @@ class ChessViewer extends Component {
         fetch(`/pgn/manifest`)
             .then(res => res.json())
             .then(manifest => {
-                this.props.dispatch(loadManifest(manifest.manifest));
+                
+                function addHash(item) {
+                    return { description: item, hash: md5(item) }
+                }
+
+                this.props.dispatch(loadManifest(manifest.manifest.map(addHash)));
             });
     }
 
@@ -60,7 +66,7 @@ class ChessViewer extends Component {
         return (
             <div>
                 <ChessStatusBarContainer />
-                <ChessGameSelector />
+                <ChessGameSelectorContainer />
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />
                 <Chessboard board={ this.props.history[this.props.currentMove] } />
                 <ChessControlsContainer />
