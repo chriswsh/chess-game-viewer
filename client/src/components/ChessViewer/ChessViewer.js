@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import md5 from 'js-md5';
 
 import Chessboard from '../Chessboard/Chessboard';
 import ChessHeader from '../ChessHeader/ChessHeader';
@@ -21,12 +20,7 @@ class ChessViewer extends Component {
         fetch(`/pgn/manifest`)
             .then(res => res.json())
             .then(manifest => {
-                
-                function addHash(item) {
-                    return { description: item, hash: md5(item) }
-                }
-
-                this.props.dispatch(loadManifest(manifest.manifest.map(addHash)));
+                this.props.dispatch(loadManifest(manifest.manifest));
             });
     }
 

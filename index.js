@@ -1,9 +1,11 @@
 /* Code skeleton from https://daveceddia.com/create-react-app-express-production/ */
-
 const express = require('express');
 const path = require('path');
 
 const app = express();
+
+// md5 hashing
+const md5 = require('js-md5')
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -78,10 +80,13 @@ app.get(`/pgn/:gameId`, (req, res) => {
 23.Rxd8 Qxd8 24.Qxa5 Nxc4 25.Qxd8 Rxd8 26.Rc1 Nb2 27.a5 c4 28.Rc2 Rb8 29.Bf1 Rb5  1/2-1/2`,
     ];
 
-    const manifest = { manifest: [`Bakonyi, Elek vs. Benko, Pal C (1-0)`, 
-                                `Benko, Pal C vs. Fuster, Geza (1-0)`,
-                                `Benko, Pal C vs. Szilagyi, Gyorgy (1-0)`,
-                                `Benko, Pal C vs. Fischer, Robert James (1/2-1/2)`]};
+    const hashes = pgns.map(md5);
+
+    const manifest = { manifest: [{ description: `Bakonyi, Elek vs. Benko, Pal C (1-0)`, hash: hashes[0] }, 
+                                { description: `Benko, Pal C vs. Fuster, Geza (1-0)`, hash: hashes[1] },
+                                { description: `Benko, Pal C vs. Szilagyi, Gyorgy (1-0)`, hash: hashes[2] },
+                                { description: `Benko, Pal C vs. Fischer, Robert James (1/2-1/2)`, hash: hashes[3] },
+                                ]};
 
     switch (req.params.gameId) {
         case `manifest`:
