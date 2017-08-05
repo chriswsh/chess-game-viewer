@@ -1,3 +1,5 @@
+import md5 from 'js-md5';
+
 // Action Types
 export const ACTIONS = Object.freeze({
     SET_MOVE: Symbol(`Set Display Move`),
@@ -5,10 +7,18 @@ export const ACTIONS = Object.freeze({
     ADD_PREVIOUS_BOARD: Symbol(`Add Previous Board`),
     ADD_NEXT_BOARD: Symbol(`Add Next Board`),
     CHANGE_HEADER: Symbol(`Change Header`),
+
     CLEAR_MANIFEST: Symbol(`Clear Manifest`),
     LOAD_MANIFEST: Symbol(`Load Manifest`),
+
     HIDE_ALERT: Symbol(`Hide Alert`),
-    SHOW_ALERT: Symbol(`Show Alert`)
+    SHOW_ALERT: Symbol(`Show Alert`),
+
+    ADD_TO_CACHE: Symbol(`Add to Cache`),
+    REMOVE_FROM_CACHE: Symbol(`Remove from Cache`),
+    CLEAR_CACHE: Symbol(`Clear cache`),
+
+    NO_OP: Symbol(`No Op`)
 });
 
 // Action Creators
@@ -77,5 +87,41 @@ export function hideAlert() {
     return {
         type: ACTIONS.HIDE_ALERT,
         display: false
+    }
+}
+
+export function addToCache(pgn, hash) {
+    // Return a no-op action if the pgn isn't a string, or the hashes don't match
+    if (typeof pgn !== `string`) {
+        return {
+            type: ACTIONS.NO_OP
+        }
+    }
+    else {
+        const testHash = md5(pgn);
+        if (testHash !== hash) {
+            return {
+                type: ACTIONS.NO_OP
+            }
+        }
+    }
+
+    return {
+        type: ACTIONS.ADD_TO_CACHE,
+        pgn,
+        hash
+    }
+}
+
+export function removeFromCache(hash) {
+    return {
+        type: ACTIONS.REMOVE_FROM_CACHE,
+        hash
+    }
+}
+
+export function clearCache() {
+    return {
+        type: ACTIONS.CLEAR_CACHE
     }
 }
