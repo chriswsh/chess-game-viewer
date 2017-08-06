@@ -10,9 +10,8 @@ const md5 = require('js-md5')
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// Move the default game here
-app.get(`/pgn/:gameId`, (req, res) => {
-    const pgns = [
+// Setting up mock DB
+const pgns = [
 `[Event "HUN-ch"]
 [Site "Budapest"]
 [Date "1946.??.??"]
@@ -78,23 +77,32 @@ app.get(`/pgn/:gameId`, (req, res) => {
 9.b3 Rb8 10.Bb2 a6 11.dxc5 dxc5 12.Na4 b6 13.Nf4 Na5 14.Be5 Rc8 15.Qc2 Bxa4
 16.bxa4 Nd7 17.Bxg7 Kxg7 18.Bh3 Qe8 19.Qc3+ Kg8 20.Rad1 Rd8 21.Nd5 e6 22.Nxb6 Nxb6
 23.Rxd8 Qxd8 24.Qxa5 Nxc4 25.Qxd8 Rxd8 26.Rc1 Nb2 27.a5 c4 28.Rc2 Rb8 29.Bf1 Rb5  1/2-1/2`,
-    ];
+];
 
-    const hashes = pgns.map(md5);
+const mockDB = {}
+const manifest = { manifest: [] }
 
-    const manifest = { manifest: [{ description: `Bakonyi, Elek vs. Benko, Pal C (1-0)`, hash: hashes[0] }, 
-                                { description: `Benko, Pal C vs. Fuster, Geza (1-0)`, hash: hashes[1] },
-                                { description: `Benko, Pal C vs. Szilagyi, Gyorgy (1-0)`, hash: hashes[2] },
-                                { description: `Benko, Pal C vs. Fischer, Robert James (1/2-1/2)`, hash: hashes[3] },
-                                ]};
+pgns.map((pgn) => {
+    const hash = md5(pgn);
+    const whiteReg = /White "(.*)"/;
+    const blackReg = /Black "(.*)"/;
+    // https://opensource.apple.com/source/Chess/Chess-109.0.3/Documentation/PGN-Standard.txt for PGN Result spec
+    const resultReg = /Result "((?:1|0|1\/2)-(?:1|0|1\/2))"/;
+    const description = `${whiteReg.exec(pgn)[1]} vs. ${blackReg.exec(pgn)[1]} ${resultReg.exec(pgn) ? resultReg.exec(pgn)[1] : `*`}`;
 
-    switch (req.params.gameId) {
+    mockDB[hash] = { pgn, hash, description }
+    manifest.manifest = [ ...manifest.manifest, { description, hash }];
+});
+
+// Default games
+app.get(`/pgn/:gameHash`, (req, res) => {
+    switch (req.params.gameHash) {
         case `manifest`:
             res.send(JSON.stringify(manifest));
             break;
         default:
             res.send(
-                pgns[req.params.gameId] ? pgns[req.params.gameId] : ``
+                mockDB[req.params.gameHash] ? mockDB[req.params.gameHash].pgn : ``
             );
     }
 });
