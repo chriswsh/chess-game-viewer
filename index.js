@@ -86,9 +86,21 @@ pgns.map((pgn) => {
     const hash = md5(pgn);
     const whiteReg = /White "(.*)"/;
     const blackReg = /Black "(.*)"/;
+
     // https://opensource.apple.com/source/Chess/Chess-109.0.3/Documentation/PGN-Standard.txt for PGN Result spec
-    const resultReg = /Result "((?:1|0|1\/2)-(?:1|0|1\/2))"/;
-    const description = `${whiteReg.exec(pgn)[1]} vs. ${blackReg.exec(pgn)[1]} ${resultReg.exec(pgn) ? resultReg.exec(pgn)[1] : `*`}`;
+    const resultReg = /Result "((?:\*)|(?:(?:1|0|1\/2)-(?:1|0|1\/2)))"/;
+    let gameResult = resultReg.exec(pgn) ? resultReg.exec(pgn)[1] : `*`;
+    switch (gameResult) {
+        case `1-0`:
+        case `0-1`:
+        case `1/2-1/2`:
+        case `*`:
+            break;
+        default:
+            gameResult = `*`;
+    }
+
+    const description = `${whiteReg.exec(pgn)[1]} vs. ${blackReg.exec(pgn)[1]} ${gameResult}`;
 
     mockDB[hash] = { pgn, hash, description }
     manifest.manifest = [ ...manifest.manifest, { description, hash }];
