@@ -98,8 +98,7 @@ export function addToCache(pgn, hash) {
         }
     }
     else {
-        const testHash = md5(pgn);
-        if (testHash !== hash) {
+        if (md5(pgn) !== hash) {
             return {
                 type: ACTIONS.NO_OP
             }
