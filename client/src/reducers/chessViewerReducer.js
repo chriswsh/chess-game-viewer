@@ -15,7 +15,7 @@ const initialState = {
         history: [],
         manifest: [] // contains { description: `string`, hash: `string` }
     }, 
-    cachedGames: {
+    cache: {
 
     }
 }
@@ -51,10 +51,10 @@ function display(state = initialState.display, action) {
     }
 }
 
-function cachedGames(state = initialState.cachedGames, action) {
+function cache(state = initialState.cache, action) {
     switch (action.type) {
         default: return state;
     }
 }
 
-export default combineReducers({ alerts, display, cachedGames });
+export default combineReducers({ alerts, display, cache });

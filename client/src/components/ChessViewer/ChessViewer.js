@@ -8,6 +8,8 @@ import ChessMoveList from '../ChessMoveList/ChessMoveList';
 import ChessGameSelectorContainer from '../ChessGameSelectorContainer/ChessGameSelectorContainer';
 import ChessStatusBarContainer from '../ChessStatusBarContainer/ChessStatusBarContainer';
 
+import DebugCacheDisplay from '../debug/CacheDisplay/CacheDisplay';
+
 import { loadMoveList, addPreviousBoard, changeHeader, loadManifest, showAlert } from '../../reducers/actions.js';
 
 const mapStateToProps = state => {
@@ -27,6 +29,7 @@ class ChessViewer extends Component {
     render() {
         return (
             <div>
+                <DebugCacheDisplay />
                 <ChessStatusBarContainer />
                 <ChessGameSelectorContainer />
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />
