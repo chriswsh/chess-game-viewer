@@ -1,5 +1,6 @@
 // Chess themed utilities
 import { default as ChessJS } from 'chess.js';
+import md5 from 'js-md5';
 
 // I convert a square key (0-63) to the square's name in algebraic notation
 // 0 = top left corner, or a8; 7 = top right corner, or h8
@@ -96,12 +97,14 @@ export function parsePGN(pgn) {
     while (chessJS.undo()) history = [convertChessJSBoardToArray(chessJS)].concat(history);
     const player1 = chessJS.header().White;
     const player2 = chessJS.header().Black;
+    const hash = md5(pgn);
 
     return {
         moveList,
         history,
         player1,
-        player2
+        player2,
+        hash
     }
 }
 

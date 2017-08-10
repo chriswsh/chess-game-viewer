@@ -1,27 +1,44 @@
 import md5 from 'js-md5';
+import Chess from '../utils/Chess';
 
 // Action Types
 export const ACTIONS = Object.freeze({
+    SET_CURRENT_GAME_HASH: Symbol(`Set Current Game Hash`),
     SET_MOVE: Symbol(`Set Display Move`),
     LOAD_MOVE_LIST: Symbol(`Load Move List`),
     ADD_PREVIOUS_BOARD: Symbol(`Add Previous Board`),
     ADD_NEXT_BOARD: Symbol(`Add Next Board`),
+
     CHANGE_HEADER: Symbol(`Change Header`),
+    LOAD_GAME_TO_DISPLAY: Symbol(`Load Game to Display`),
 
     CLEAR_MANIFEST: Symbol(`Clear Manifest`),
     LOAD_MANIFEST: Symbol(`Load Manifest`),
 
     HIDE_ALERT: Symbol(`Hide Alert`),
+    HIDE_ALERT_IF_CURRENT_HASH: Symbol(`Hide Alert if Hash is state.currentHash`),
     SHOW_ALERT: Symbol(`Show Alert`),
+    SHOW_ALERT_IF_CURRENT_HASH: Symbol(`Show Alert if Hash is state.currentHash`),
 
     ADD_TO_CACHE: Symbol(`Add to Cache`),
     REMOVE_FROM_CACHE: Symbol(`Remove from Cache`),
-    CLEAR_CACHE: Symbol(`Clear cache`),
+    CLEAR_CACHE: Symbol(`Clear Cache`),
+
+    ADD_TO_FETCH_QUEUE: Symbol(`Add to Fetch Queue`),
+    REMOVE_FROM_FETCH_QUEUE: Symbol(`Remove from Fetch Queue`),
+    CLEAR_FETCH_QUEUE: Symbol(`Clear Fetch Queue`),
 
     NO_OP: Symbol(`No Op`)
 });
 
 // Action Creators
+export function setCurrentGameHash(hash) {
+    return {
+        type: ACTIONS.SET_CURRENT_GAME_HASH,
+        hash
+    }
+}
+
 export function setMove(moveNumber = 0) {
     return {
         type: ACTIONS.SET_MOVE,
@@ -60,6 +77,13 @@ export function changeHeader(header) {
     }
 }
 
+export function loadGameToDisplay(parsedGame) {
+    return {
+        type: ACTIONS.LOAD_GAME_TO_DISPLAY,
+        parsedGame
+    }
+}
+
 export function clearManifest() {
     return {
         type: ACTIONS.CLEAR_MANIFEST,
@@ -83,6 +107,16 @@ export function showAlert({message=`Default Message`, style=`info`}) {
     }
 }
 
+export function showAlertIfCurrentHash({message=`Default Message`, style=`info`}, hash) {
+    return {
+        type: ACTIONS.SHOW_ALERT_IF_CURRENT_HASH,
+        message,
+        style,
+        display: true,
+        hash
+    }
+}
+
 export function hideAlert() {
     return {
         type: ACTIONS.HIDE_ALERT,
@@ -90,24 +124,18 @@ export function hideAlert() {
     }
 }
 
-export function addToCache(pgn, hash) {
-    // Return a no-op action if the pgn isn't a string, or the hashes don't match
-    if (typeof pgn !== `string`) {
-        return {
-            type: ACTIONS.NO_OP
-        }
+export function hideAlertIfCurrentHash(hash) {
+    return {
+        type: ACTIONS.HIDE_ALERT_IF_CURRENT_HASH,
+        display: false,
+        hash
     }
-    else {
-        if (md5(pgn) !== hash) {
-            return {
-                type: ACTIONS.NO_OP
-            }
-        }
-    }
+}
 
+export function addToCache(newItem, hash) {
     return {
         type: ACTIONS.ADD_TO_CACHE,
-        pgn,
+        newItem,
         hash
     }
 }
@@ -122,5 +150,58 @@ export function removeFromCache(hash) {
 export function clearCache() {
     return {
         type: ACTIONS.CLEAR_CACHE
+    }
+}
+
+export function fetchGame(hash) {
+    return (dispatch) => {
+        // Set loading status
+        dispatch(showAlert({ message: `Loading...`, style: `info` }));
+        // Add to queue
+        dispatch(addToFetchQueue(hash));
+
+        // Simulate network latency
+        return new Promise(function (resolve, reject) {
+                setTimeout(() => { resolve(true) }, 3000);
+            })
+            .then(() => fetch(`/pgn/${hash}`))
+            .then(res => res.text())
+            .then(pgn => {
+                const parsedGame = Chess.parsePGN(pgn);
+                dispatch(addToCache(parsedGame, hash));
+                dispatch(loadGameToDisplay(parsedGame));
+                // dispatch(hideAlertIfCurrentHash(hash));
+                dispatch(showAlertIfCurrentHash({message: `Loaded Game from Fetch`}, hash));
+                dispatch(removeFromFetchQueue(hash));
+            })
+            .catch(() => {
+                dispatch(removeFromFetchQueue(hash));
+            });
+    }
+}
+
+export function addToFetchQueue(hash) {
+    return {
+        type: ACTIONS.ADD_TO_FETCH_QUEUE,
+        hash
+    }
+}
+
+export function removeFromFetchQueue(hash) {
+    return {
+        type: ACTIONS.REMOVE_FROM_FETCH_QUEUE,
+        hash
+    }
+}
+
+export function clearFetchQueue() {
+    return {
+        type: ACTIONS.CLEAR_FETCH_QUEUE
+    }
+}
+
+export function noop() {
+    return {
+        type: ACTIONS.NO_OP
     }
 }

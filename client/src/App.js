@@ -3,11 +3,12 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { ChessViewer, AppHeader } from './components/index';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 import chessViewerReducer from './reducers/chessViewerReducer';
 
-let store = createStore(chessViewerReducer);
+let store = createStore(chessViewerReducer, applyMiddleware(thunkMiddleware));
 
 class InnerApp extends Component {
     render() {

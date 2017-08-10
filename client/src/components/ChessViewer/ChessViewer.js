@@ -29,7 +29,6 @@ class ChessViewer extends Component {
     render() {
         return (
             <div>
-                <DebugCacheDisplay />
                 <ChessStatusBarContainer />
                 <ChessGameSelectorContainer />
                 <ChessHeader player1={ this.props.player1 } player2={ this.props.player2 } />

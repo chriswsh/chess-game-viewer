@@ -18,7 +18,7 @@ class ChessGameSelector extends Component {
         }
         
         return (
-            <MenuItem eventKey={ index + 1 } key={ hash } onClick={ () => { this.props.loadGame(hash) } }>{ description }</MenuItem>
+            <MenuItem eventKey={ index + 1 } key={ hash } onClick={ () => { this.props.loadGame(hash, this.props.currentHash, this.props.cache, this.props.queue) } }>{ description }</MenuItem>
         );
     }
 

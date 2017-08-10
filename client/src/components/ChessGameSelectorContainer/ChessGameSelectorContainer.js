@@ -4,15 +4,35 @@ import PropTypes from 'prop-types';
 
 import ChessGameSelector from '../ChessGameSelector/ChessGameSelector';
 
-import { showAlert, hideAlert } from '../../reducers/actions';
+import { showAlert, hideAlert, loadGameToDisplay, fetchGame, setCurrentGameHash } from '../../reducers/actions';
 
 const mapStateToProps = state => {
-    return Object.assign({}, { manifest: state.display.manifest });
+    return Object.assign({}, { currentHash: state.display.currentHash, manifest: state.display.manifest, cache: state.cache, queue: state.fetchQueue });
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadGame: (game) => { dispatch(showAlert( {message: `Loading game ${game}`, style: `info` })) },
+        loadGame: (hash, currentHash, cache, queue) => {
+            // if the target and currently displayed games are the same, do nothing
+            if (hash === currentHash) return;
+
+            // Set the display target
+            dispatch(setCurrentGameHash(hash));
+
+            // If the hash isn't currently in the cache, we need to fetch it
+            if (cache[hash] === undefined) {
+                // But not if it's already being fetched
+                if (queue.includes(hash)) return;
+                
+                // console.log(`Fetch queue: ${queue}`);
+                dispatch(fetchGame(hash));
+            }
+            else {
+                dispatch(loadGameToDisplay(cache[hash]));
+                // dispatch(hideAlert());
+                dispatch(showAlert({message: `Loaded Game from Cache`, style: `info`}));
+            }
+        },
         clearBoard: () => { dispatch(hideAlert()) }
     };
 }
@@ -29,14 +49,21 @@ export function fullGameList(list) {
 
 function ChessGameSelectorContainer(props) {
     return (
-        <ChessGameSelector list={ fullGameList(props.manifest)} symbols={ symbols } loadGame={ props.loadGame } clearBoard={ props.clearBoard }/>
+        <ChessGameSelector list={ fullGameList(props.manifest) }
+                            symbols={ symbols }
+                            loadGame={ props.loadGame }
+                            clearBoard={ props.clearBoard }
+                            cache={ props.cache }
+                            queue={ props.queue }
+                            currentHash={ props.currentHash }/>
     );
 }
 
 ChessGameSelectorContainer.propTypes = {
     manifest: PropTypes.array.isRequired,
     loadGame: PropTypes.func.isRequired,
-    clearBoard: PropTypes.func.isRequired
+    clearBoard: PropTypes.func.isRequired,
+    cache: PropTypes.object.isRequired
 }
 
 const ReduxChessGameSelectorContainer = Object.freeze(connect(mapStateToProps, mapDispatchToProps)(ChessGameSelectorContainer));
