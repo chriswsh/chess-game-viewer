@@ -1,0 +1,238 @@
+[33mcommit 6d83a34ab44d9bba4f9b3e7d43e9238ee90ee884[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Sep 2 12:16:23 2017 -0500
+
+    Fixed loading bug
+
+[33mcommit 782d6cbe82b27a4fe7c8b0ae2cf9568fd673e92e[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Sep 2 11:56:32 2017 -0500
+
+    No comments...
+
+[33mcommit 5ee66c39bb98441d88005d2544eba6541d41e2cc[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Sep 2 11:55:19 2017 -0500
+
+    Removed proxy
+
+[33mcommit 930e1289e3914a8b444dce1cf075edd09ed5b5b8[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Wed Aug 9 22:15:17 2017 -0500
+
+    Switched to `BrowserRouter`
+
+[33mcommit 8c6505e1fdf09bd9d6b9f3e205a902beb3c568a8[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Wed Aug 9 21:49:00 2017 -0500
+
+    Added caching for game fetch() requests
+    
+    * Added caching for game fetch() requests, with simulated network
+    latency of at least 3 seconds
+    * Unit testing to come later
+    * Updated `Chess.js` utility file to include md5 hash when parsing PGNs
+
+[33mcommit 583ab43bd31df4bb99d25bf4072065f99b2d5856[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Wed Aug 9 18:23:41 2017 -0500
+
+    Simplifed hash checking
+
+[33mcommit da520abf224a7827708c81c2e44fa27be2df6445[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Wed Aug 9 18:23:25 2017 -0500
+
+    Added CacheDisplay component to view state of cache for debug
+    
+    * Added `CacheDisplay` component to view state of cache for debug
+    * Changed name of cache from `store.cachedGames` to `store.cache`
+
+[33mcommit 4795cc2d4492eec9c32442b593a781b788ecfcef[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sun Aug 6 11:22:05 2017 -0500
+
+    Improved PGN game result regex parsing
+
+[33mcommit f9e782f407a502b263b636a929e60267d98b5467[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sun Aug 6 10:24:52 2017 -0500
+
+    Updated express server to serve pgns by hash
+    
+    * URL format is now `/pgn/:gameHash/`
+
+[33mcommit 63d30a5fcc49039a62f749453a6ca8f9457af16a[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 17:45:54 2017 -0500
+
+    Added cache actions
+    
+    * Added cache actions
+    * Grouped action type symbols with whitespace
+
+[33mcommit 82c46141ebc487bf114fd785f33136ab91276c95[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 17:41:50 2017 -0500
+
+    Updated REST API to serve hashes with the manifest
+    
+    * Updated REST API to serve hashes with the manifest
+    * Removed test functionality from `ChessViewer` component
+
+[33mcommit f8938af2e9e990a7d017ab24b4da27aaec40dff7[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 17:30:18 2017 -0500
+
+    Moved conversion from chess.js library to Chess.js
+    
+    * Moved data conversion from `chess.js` library to `Chess.js`
+    * Hopefully this removes confusion from naming
+    * Tweaked format for consistency
+
+[33mcommit 017c4d12d1c029b8ac74a90babbef2cb6f246161[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 11:59:23 2017 -0500
+
+    Extracted ChessControlsContainer component
+    
+    * Extracted `ChessGameSelectorContainer` to connect to store
+    * Updated `ChessGameSelector` to use hashes for game identification
+
+[33mcommit 5ed41dd1f975760553c2830660d1a4d659d45b9c[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 11:56:58 2017 -0500
+
+    Added js-md5 dependency for hashing
+
+[33mcommit 83c19af9fa3c5d0711e622eefba1e3ca8bd2e948[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Aug 5 10:54:25 2017 -0500
+
+    Added prop-types dependency
+    
+    * Added prop-types dependency for type checking
+    * Will also start adding default props for documentation and unit
+    testing purposes
+
+[33mcommit 1a7ad21d069ac5e47747c59705ad1bfeb6c7837c[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Fri Aug 4 18:46:22 2017 -0500
+
+    Separated Reducers
+    
+    * Separated reducers into `alerts`, `display` and `cachedGames`
+    * Updated components that rely on the new `display` substate to show the
+    board
+
+[33mcommit e3c2a4e2695bc01ed75cc15f69012d4bb34a46a8[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Fri Aug 4 18:05:42 2017 -0500
+
+    Added redux-thunk dependency
+
+[33mcommit 77a9a62bc4be1ef9ce8fa88ea892d09d610a7bed[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Aug 3 21:03:27 2017 -0500
+
+    Made ChessGameSelector active
+    
+    * Clicking options in `ChessGameSelector` `DropDownButton` now changes
+    Redux store state
+    * State changes are linked to `state.alerts` and thus, `ChessStatusBar`
+
+[33mcommit d4dd9a9b88be5fd7effbd3254ad63885ec46fbc4[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Aug 3 20:49:20 2017 -0500
+
+    Added status bar
+    
+    * Added `ChessStatusBar` presentational component
+    * Added `ChessStatusBarContainer` component
+    * Added actions, updated reducer to control status bar display
+
+[33mcommit 6e7e36ad223dcba2bf57715653665986d87fda67[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Aug 3 19:53:43 2017 -0500
+
+    Stubbed window.fetch for unit tests
+
+[33mcommit 6a42c25f904d18a0b7a2a52a95b0a2a9518c7d88[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Aug 3 19:31:53 2017 -0500
+
+    Removed automatic game load at app start
+    
+    * Removed automatic game load at app start
+    * Updated `ChessMoveList` styling to display blank box if no game listed
+
+[33mcommit 94ec776cb28651563786a819b763a048a5b3d96a[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 29 18:29:45 2017 -0500
+
+    Added heroku deployment scripts
+
+[33mcommit 29f6b658380f896969eca76c7abf95fdc16c5c15[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 29 17:53:32 2017 -0500
+
+    * Added ChessGameSelector to select game to display
+    
+    * Added `ChessGameSelector` component to display manifest of available
+    games
+    * Updated express app `index.js` to serve sample manifest
+    * Updated `chessViewerReducer` and `actions.js` to handle manifests
+
+[33mcommit 4d6209c746ad6dce82642fe403914f60b6c64702[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 29 17:16:00 2017 -0500
+
+    Updated express app to be able to serve multiple files
+
+[33mcommit f7142f05ef731f78c1ba66efe3afec3972e2b0f3[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 29 17:06:18 2017 -0500
+
+    Updated to ignore test pgn files
+
+[33mcommit b17161077ac9a910ddbf274e655dc28da37be710[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Wed Jul 26 20:30:56 2017 -0500
+
+    Set React client app to load from Express API
+
+[33mcommit 74a659e4f44cbc130da87c072ec1ff3a9d9db17d[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Mon Jul 24 22:04:01 2017 -0500
+
+    Added express server
+    
+    * Added express server in root directory
+    * Moved React app to `client\`
+    * Changed `withBEM` in `client\src\utils` to take a `componentName`
+    parameter to handle minified code, updated unit tests
+
+[33mcommit cfb0178f0a3b626f1e59b4618ff79b1ed9ef4f0f[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 22 13:21:55 2017 -0500
+
+    Extracted AppHeader component
+    
+    * Extracted `AppHeader` component
+    * Added smoke tests for `AppHeader` and `NotFound`
+
+[33mcommit 329fefd8bde6cb511524fcdd10451ad57df46406[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Sat Jul 22 13:14:29 2017 -0500
+
+    Added Routes, history and test 404 page
+
+[33mcommit d5c76b12d60ef27484a284eddbd20a6dc0e5e462[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Jul 20 21:06:05 2017 -0500
+
+    Deleted unnecessary stylesheets
+
+[33mcommit f3eb0fdc310a8897da52f9d13940861cac47153a[m
+Author: Chris Wong Sick Hong <chriswongsickhong@gmail.com>
+Date:   Thu Jul 20 21:05:38 2
