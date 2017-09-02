@@ -93,7 +93,7 @@ export function parsePGN(pgn) {
     if (!chessJS.load_pgn(pgn)) return undefined;
 
     const moveList = chessJS.history();
-    let history = convertChessJSBoardToArray(chessJS);
+    let history = [convertChessJSBoardToArray(chessJS)];
     while (chessJS.undo()) history = [convertChessJSBoardToArray(chessJS)].concat(history);
     const player1 = chessJS.header().White;
     const player2 = chessJS.header().Black;
