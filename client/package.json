@@ -41,5 +41,4 @@
   "jest": {
     "snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"]
   }
-  /* "proxy": "http://localhost:5000" */
 }
