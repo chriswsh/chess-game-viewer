@@ -5,7 +5,6 @@ import Dialog from "./constants";
 
 class ModalDialog extends Component {
     handleClose(choice) {
-        console.log(this.props.reactions);
         switch (choice) {
             case Dialog.buttons.yes:
             case Dialog.buttons.ok:
