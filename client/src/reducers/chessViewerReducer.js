@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { ACTIONS } from './actions';
+import { combineReducers } from "redux";
+import { ACTIONS } from "./actions";
 
 const initialState = Object.freeze({
     alerts: {
@@ -16,28 +16,36 @@ const initialState = Object.freeze({
         moveList: [],
         history: [],
         manifest: [] // contains { description: `string`, hash: `string` }
-    }, 
-    cache: {
     },
-    fetchQueue: []
+    cache: {},
+    fetchQueue: [],
+    dialog: { show: false }
 });
 
 function alerts(state = initialState.alerts, action) {
     switch (action.type) {
         case ACTIONS.SHOW_ALERT:
-            return Object.assign({}, state, { message: action.message, style: action.style, display: action.display });
+            return Object.assign({}, state, {
+                message: action.message,
+                style: action.style,
+                display: action.display
+            });
         case ACTIONS.HIDE_ALERT:
             return Object.assign({}, state, { display: action.display });
         case ACTIONS.SET_CURRENT_GAME_HASH:
             return Object.assign({}, state, { currentHash: action.hash });
         case ACTIONS.SHOW_ALERT_IF_CURRENT_HASH:
             if (action.hash === state.currentHash) {
-                return Object.assign({}, state, { message: action.message, style: action.style, display: action.display });            
+                return Object.assign({}, state, {
+                    message: action.message,
+                    style: action.style,
+                    display: action.display
+                });
             }
             return state;
         case ACTIONS.HIDE_ALERT_IF_CURRENT_HASH:
             if (action.hash === state.currentHash) {
-                return Object.assign({}, state, { display: action.display });            
+                return Object.assign({}, state, { display: action.display });
             }
             return state;
         default:
@@ -51,11 +59,18 @@ function display(state = initialState.display, action) {
         case ACTIONS.LOAD_MOVE_LIST:
             return Object.assign({}, state, { moveList: action.moveList });
         case ACTIONS.ADD_PREVIOUS_BOARD:
-            return Object.assign({}, state, { history: [action.board].concat(state.history) });
+            return Object.assign({}, state, {
+                history: [action.board].concat(state.history)
+            });
         case ACTIONS.ADD_NEXT_BOARD:
-            return Object.assign({}, state, { history: state.history.concat(action.board) });
+            return Object.assign({}, state, {
+                history: state.history.concat(action.board)
+            });
         case ACTIONS.CHANGE_HEADER:
-            return Object.assign({}, state, { player1: action.player1, player2: action.player2 });
+            return Object.assign({}, state, {
+                player1: action.player1,
+                player2: action.player2
+            });
         case ACTIONS.SET_MOVE:
             return Object.assign({}, state, { currentMove: action.moveNumber });
         case ACTIONS.LOAD_MANIFEST:
@@ -66,41 +81,58 @@ function display(state = initialState.display, action) {
             // Only change the display if we have a match
             // console.log(`comparing ${action.parsedGame.hash} with ${state.currentHash}`);
             if (action.parsedGame.hash === state.currentHash) {
-                return Object.assign({}, state, { currentMove: 0 }, action.parsedGame);
+                return Object.assign(
+                    {},
+                    state,
+                    { currentMove: 0 },
+                    action.parsedGame
+                );
             }
             return state;
         case ACTIONS.SET_CURRENT_GAME_HASH:
             return Object.assign({}, state, { currentHash: action.hash });
-        default: return state;
+        default:
+            return state;
     }
 }
 
 function cache(state = initialState.cache, action) {
     switch (action.type) {
         case ACTIONS.ADD_TO_CACHE:
-            return Object.assign({}, state, { [action.hash]: action.newItem } );
+            return Object.assign({}, state, { [action.hash]: action.newItem });
         case ACTIONS.REMOVE_FROM_CACHE:
             if (undefined === state[action.hash]) return state;
             const { [action.hash]: removed, ...newState } = state;
             return Object.assign({}, newState);
         case ACTIONS.CLEAR_CACHE:
             return initialState.cache;
-        default: return state;
+        default:
+            return state;
     }
 }
 
 function fetchQueue(state = initialState.fetchQueue, action) {
     switch (action.type) {
         case ACTIONS.ADD_TO_FETCH_QUEUE:
-            if (!state.includes(action.hash)) return state.concat([action.hash]);
+            if (!state.includes(action.hash))
+                return state.concat([action.hash]);
             return state;
         case ACTIONS.REMOVE_FROM_FETCH_QUEUE:
-            if (state.includes(action.hash)) return state.filter((elem) => (elem !== action.hash));
+            if (state.includes(action.hash))
+                return state.filter(elem => elem !== action.hash);
             return state;
         case ACTIONS.CLEAR_FETCH_QUEUE:
             return initialState.fetchQueue;
-        default: return state;
+        default:
+            return state;
     }
 }
 
-export default combineReducers({ alerts, display, cache, fetchQueue });
+function dialog(state = initialState.dialog, action) {
+    switch (action.type) {
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({ alerts, display, cache, fetchQueue, dialog });

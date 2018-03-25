@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import { ChessViewer, AppHeader } from './components/index';
+import React, { Component } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
+import { ChessViewer, AppHeader, ModalDialogBox } from "./components/index";
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
 
-import chessViewerReducer from './reducers/chessViewerReducer';
+import chessViewerReducer from "./reducers/chessViewerReducer";
 
 let store = createStore(chessViewerReducer, applyMiddleware(thunkMiddleware));
 
@@ -22,6 +22,7 @@ class InnerApp extends Component {
                         </Col>
                     </Row>
                 </Grid>
+                <ModalDialogBox />
             </div>
         );
     }
@@ -30,7 +31,7 @@ class InnerApp extends Component {
 class App extends Component {
     render() {
         return (
-            <Provider store={ store }>
+            <Provider store={store}>
                 <InnerApp />
             </Provider>
         );
