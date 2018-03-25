@@ -52,7 +52,12 @@ const mapDispatchToProps = dispatch => {
             }
         },
         clearBoard: () => {
-            dispatch(hideAlert());
+            dispatch(
+                showAlert({
+                    message: `Clear Board Not Yet Implemented`,
+                    style: `warning`
+                })
+            );
         }
     };
 };
