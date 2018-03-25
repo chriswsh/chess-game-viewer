@@ -1,6 +1,3 @@
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
-
 const buttons = Object.freeze({
     yes: Symbol(`Yes`),
     yesNo: Symbol(`No`),

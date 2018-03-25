@@ -1,12 +1,12 @@
-import './ChessHeader.css';
+import "./ChessHeader.css";
 
-import React, { Component } from 'react';
-import { withBEM } from '../../utils/BEM';
+import React from "react";
+import { withBEM } from "../../utils/BEM";
 
 function ChessHeader(props) {
     return (
-        <div className={ props.BEMclass }>
-            <h2>{ `${props.player1}-${props.player2}` }</h2>
+        <div className={props.BEMclass}>
+            <h2>{`${props.player1}-${props.player2}`}</h2>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 // I do the BEM thing
-import React, { Component } from 'react';
-import { curry } from 'lodash';
-import { castArray, getComponentName } from './utils';
+import React, { Component } from "react";
+import { curry } from "lodash";
+import { castArray } from "./utils";
 
 // I am the BEM domain to prefix
 const BEM_DOMAIN = `wsh`;
@@ -21,33 +21,42 @@ export const BEMFullCombine = (domain, components, states) => {
     // insist that there are at least components
     if (!components.length) return undefined;
 
-    let baseClass = domain ? domain + `-` + components.join(`-`) : components.join(`-`);
+    let baseClass = domain
+        ? domain + `-` + components.join(`-`)
+        : components.join(`-`);
 
-    return states.reduce((finalClass, state) => `${finalClass} ${baseClass}--${state}`, baseClass);
+    return states.reduce(
+        (finalClass, state) => `${finalClass} ${baseClass}--${state}`,
+        baseClass
+    );
 };
 
 // I am a curried version of BEMFullCombine which already has the domain prefixed
 export const BEMCombineClassState = curry(BEMFullCombine)(BEM_DOMAIN);
 
 // I wrap a component with BEM functionality
-export function withBEM(WrappedComponent, componentName='noName') {
+export function withBEM(WrappedComponent, componentName = "noName") {
     return class extends Component {
-        constructor(props) {
-            super(props);
-        }
-
         BEMCombineState() {
             // Pass the wrapped component's name in to deal with minified code
             let parentChain = componentName; // getComponentName(WrappedComponent);
 
             if (this.props) {
                 // handle arrays
-                if (this.props.BEMparents && Array.isArray(this.props.BEMparents)) {
+                if (
+                    this.props.BEMparents &&
+                    Array.isArray(this.props.BEMparents)
+                ) {
                     parentChain = this.props.BEMparents.concat(parentChain);
                 }
                 // handle space-separated lists
-                if (this.props.BEMparents && !Array.isArray(this.props.BEMparents)) {
-                    parentChain = this.props.BEMparents.toString().split(` `).concat(parentChain);
+                if (
+                    this.props.BEMparents &&
+                    !Array.isArray(this.props.BEMparents)
+                ) {
+                    parentChain = this.props.BEMparents.toString()
+                        .split(` `)
+                        .concat(parentChain);
                 }
             }
 
@@ -57,9 +66,19 @@ export function withBEM(WrappedComponent, componentName='noName') {
         BEMFullClass() {
             if (this.props) {
                 // handle arrays
-                if (this.props.BEMmodifiers && Array.isArray(this.props.BEMmodifiers)) return this.BEMCombineState()(this.props.BEMmodifiers);
+                if (
+                    this.props.BEMmodifiers &&
+                    Array.isArray(this.props.BEMmodifiers)
+                )
+                    return this.BEMCombineState()(this.props.BEMmodifiers);
                 // handle space-separated lists
-                if (this.props.BEMmodifiers && !Array.isArray(this.props.BEMmodifiers)) return this.BEMCombineState()(this.props.BEMmodifiers.toString().split(` `));
+                if (
+                    this.props.BEMmodifiers &&
+                    !Array.isArray(this.props.BEMmodifiers)
+                )
+                    return this.BEMCombineState()(
+                        this.props.BEMmodifiers.toString().split(` `)
+                    );
             }
             return this.BEMCombineState()([]);
         }
@@ -67,8 +86,11 @@ export function withBEM(WrappedComponent, componentName='noName') {
         render() {
             const { BEMparents, BEMmodifiers, ...otherProps } = this.props;
             return (
-                <WrappedComponent BEMclass={this.BEMFullClass()} {...otherProps} />
+                <WrappedComponent
+                    BEMclass={this.BEMFullClass()}
+                    {...otherProps}
+                />
             );
         }
-    }
+    };
 }

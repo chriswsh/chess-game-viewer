@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -6,7 +6,7 @@ import ChessGameSelector from "../ChessGameSelector/ChessGameSelector";
 
 import {
     showAlert,
-    hideAlert,
+    /* hideAlert, */
     loadGameToDisplay,
     fetchGame,
     setCurrentGameHash

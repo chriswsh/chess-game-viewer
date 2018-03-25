@@ -1,4 +1,3 @@
-import md5 from "js-md5";
 import Chess from "../utils/Chess";
 
 // Action Types

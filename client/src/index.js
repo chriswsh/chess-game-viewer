@@ -1,18 +1,15 @@
-import './index.css';
+import "./index.css";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createBrowserHistory, createHashHistory } from 'history';
+import React from "react";
+import ReactDOM from "react-dom";
+// import { createBrowserHistory, createHashHistory } from "history";
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from "./registerServiceWorker";
 
-import Routes from './routes';
+import Routes from "./routes";
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 // const oldHistory = createHashHistory();
 
-ReactDOM.render(
-    <Routes history={ history } />,
-    document.getElementById('root')
-);
+ReactDOM.render(<Routes />, document.getElementById("root"));
 registerServiceWorker();

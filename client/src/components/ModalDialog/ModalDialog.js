@@ -94,12 +94,7 @@ class ModalDialog extends Component {
 
     render() {
         return (
-            <Modal
-                show={this.props.show}
-                onHide={() => {
-                    this.handleClose;
-                }}
-            >
+            <Modal show={this.props.show}>
                 <Modal.Header>
                     <Modal.Title>{this.props.title}</Modal.Title>
                 </Modal.Header>
