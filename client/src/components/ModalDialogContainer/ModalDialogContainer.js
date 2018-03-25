@@ -2,9 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ModalDialog from "../ModalDialog/ModalDialog";
 import Dialog from "../ModalDialog/constants";
+import {
+    loadGameToDisplay,
+    hideModalDialog,
+    setCurrentGameHash
+} from "../../reducers/actions";
 
 const mapStateToProps = state => {
-    let { show, title, message, type, style } = state.dialog;
+    let {
+        show,
+        title,
+        message,
+        type,
+        style,
+        currentHash,
+        gameJustFetchedHash,
+        displayedHash
+    } = state.dialog;
 
     show = show || false;
     title = title || `Default Container Title`;
@@ -12,16 +26,29 @@ const mapStateToProps = state => {
     type = type || Dialog.buttons.okCancel;
     style = style || Dialog.style.normal;
 
-    return { show, title, message, type, style };
+    return {
+        show,
+        title,
+        message,
+        type,
+        style,
+        currentHash,
+        gameJustFetchedHash,
+        displayedHash,
+        cache: state.cache
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     const reactions = {
-        displayNewlyLoadedGame: () => {
-            console.log(`Displaying newly loaded game`);
+        displayNewlyLoadedGame: (cache, hash) => {
+            dispatch(loadGameToDisplay(cache[hash]));
         },
-        noOp: () => {
-            console.log(`Doing nothing`);
+        setCurrentGameHash: hash => {
+            dispatch(setCurrentGameHash(hash));
+        },
+        hide: () => {
+            dispatch(hideModalDialog());
         }
     };
 
@@ -30,19 +57,24 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-function ModalDialogContainer(props) {
-    return (
-        <div>
-            <ModalDialog
-                show={props.show}
-                title={props.title}
-                message={props.message}
-                type={props.type}
-                style={props.style}
-                reactions={props.reactions}
-            />Test
-        </div>
-    );
+class ModalDialogContainer extends Component {
+    render() {
+        return (
+            <div>
+                <ModalDialog
+                    show={this.props.show}
+                    title={this.props.title}
+                    message={this.props.message}
+                    type={this.props.type}
+                    style={this.props.style}
+                    reactions={this.props.reactions}
+                    cache={this.props.cache}
+                    newlyLoadedGame={this.props.gameJustFetchedHash}
+                    displayedHash={this.props.displayedHash}
+                />
+            </div>
+        );
+    }
 }
 
 const ReduxModalDialogContainer = Object.freeze(

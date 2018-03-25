@@ -1,14 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import ChessGameSelector from '../ChessGameSelector/ChessGameSelector';
+import ChessGameSelector from "../ChessGameSelector/ChessGameSelector";
 
-import { showAlert, hideAlert, loadGameToDisplay, fetchGame, setCurrentGameHash } from '../../reducers/actions';
+import {
+    showAlert,
+    hideAlert,
+    loadGameToDisplay,
+    fetchGame,
+    setCurrentGameHash
+} from "../../reducers/actions";
 
 const mapStateToProps = state => {
-    return Object.assign({}, { currentHash: state.display.currentHash, manifest: state.display.manifest, cache: state.cache, queue: state.fetchQueue });
-}
+    return Object.assign(
+        {},
+        {
+            currentHash: state.display.currentHash,
+            manifest: state.display.manifest,
+            cache: state.cache,
+            queue: state.fetchQueue
+        }
+    );
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -23,39 +37,55 @@ const mapDispatchToProps = dispatch => {
             if (cache[hash] === undefined) {
                 // But not if it's already being fetched
                 if (queue.includes(hash)) return;
-                
+
                 // console.log(`Fetch queue: ${queue}`);
                 dispatch(fetchGame(hash));
-            }
-            else {
+            } else {
                 dispatch(loadGameToDisplay(cache[hash]));
                 // dispatch(hideAlert());
-                dispatch(showAlert({message: `Loaded Game from Cache`, style: `info`}));
+                dispatch(
+                    showAlert({
+                        message: `Loaded Game from Cache`,
+                        style: `info`
+                    })
+                );
             }
         },
-        clearBoard: () => { dispatch(hideAlert()) }
+        clearBoard: () => {
+            dispatch(hideAlert());
+        }
     };
-}
+};
 
-const symbols = { divider: Symbol(`Game Selector Divider`), clear: Symbol(`Game Selector Clear`) }
+const symbols = {
+    divider: Symbol(`Game Selector Divider`),
+    clear: Symbol(`Game Selector Clear`)
+};
 
 export function fullGameList(list) {
     if (!Array.isArray(list)) return undefined;
 
-    if (list.length > 0) return [ ...list, { description: symbols.divider }, { description: symbols.clear } ]
+    if (list.length > 0)
+        return [
+            ...list,
+            { description: symbols.divider },
+            { description: symbols.clear }
+        ];
 
     return undefined; // use undefined if empty list so that default props can take over
 }
 
 function ChessGameSelectorContainer(props) {
     return (
-        <ChessGameSelector list={ fullGameList(props.manifest) }
-                            symbols={ symbols }
-                            loadGame={ props.loadGame }
-                            clearBoard={ props.clearBoard }
-                            cache={ props.cache }
-                            queue={ props.queue }
-                            currentHash={ props.currentHash }/>
+        <ChessGameSelector
+            list={fullGameList(props.manifest)}
+            symbols={symbols}
+            loadGame={props.loadGame}
+            clearBoard={props.clearBoard}
+            cache={props.cache}
+            queue={props.queue}
+            currentHash={props.currentHash}
+        />
     );
 }
 
@@ -64,8 +94,10 @@ ChessGameSelectorContainer.propTypes = {
     loadGame: PropTypes.func.isRequired,
     clearBoard: PropTypes.func.isRequired,
     cache: PropTypes.object.isRequired
-}
+};
 
-const ReduxChessGameSelectorContainer = Object.freeze(connect(mapStateToProps, mapDispatchToProps)(ChessGameSelectorContainer));
-export { ReduxChessGameSelectorContainer as ChessGameSelectorContainer }
-export { ReduxChessGameSelectorContainer as default }
+const ReduxChessGameSelectorContainer = Object.freeze(
+    connect(mapStateToProps, mapDispatchToProps)(ChessGameSelectorContainer)
+);
+export { ReduxChessGameSelectorContainer as ChessGameSelectorContainer };
+export { ReduxChessGameSelectorContainer as default };

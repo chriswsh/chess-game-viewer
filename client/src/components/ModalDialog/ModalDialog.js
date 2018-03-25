@@ -8,9 +8,21 @@ class ModalDialog extends Component {
         console.log(this.props.reactions);
         switch (choice) {
             case Dialog.buttons.yes:
-            case Dialog.buttons.no:
             case Dialog.buttons.ok:
+                this.props.reactions.displayNewlyLoadedGame(
+                    this.props.cache,
+                    this.props.newlyLoadedGame
+                );
+                this.props.reactions.hide();
+                return;
+            case Dialog.buttons.no:
             case Dialog.buttons.cancel:
+            default:
+                // reset current hash to currently displayed game
+                this.props.reactions.setCurrentGameHash(
+                    this.props.displayedHash
+                );
+                this.props.reactions.hide();
         }
     }
 
@@ -107,7 +119,10 @@ ModalDialog.propTypes = {
     message: PropTypes.string.isRequired,
     type: PropTypes.symbol.isRequired,
     style: PropTypes.symbol.isRequired,
-    reactions: PropTypes.object.isRequired
+    reactions: PropTypes.object.isRequired,
+    cache: PropTypes.object.isRequired,
+    newlyLoadedGame: PropTypes.string.isRequired,
+    displayedHash: PropTypes.string.isRequired
 };
 
 ModalDialog.defaultProps = {
@@ -116,7 +131,10 @@ ModalDialog.defaultProps = {
     message: `Component Default message`,
     type: Dialog.buttons.okCancel,
     style: Dialog.style.normal,
-    reactions: {}
+    reactions: {},
+    cachse: {},
+    newlyLoadedGame: ``,
+    displayedHash: ``
 };
 
 export { ModalDialog };

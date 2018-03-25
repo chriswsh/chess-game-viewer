@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { ACTIONS } from "./actions";
+import Dialog from "../components/ModalDialog/constants";
 
 const initialState = Object.freeze({
     alerts: {
@@ -10,6 +11,7 @@ const initialState = Object.freeze({
     },
     display: {
         currentHash: ``,
+        displayedHash: ``,
         player1: `Anonymous`,
         player2: `Anonymous`,
         currentMove: 0,
@@ -19,7 +21,12 @@ const initialState = Object.freeze({
     },
     cache: {},
     fetchQueue: [],
-    dialog: { show: false }
+    dialog: {
+        show: false,
+        gameJustFetchedHash: ``,
+        currentHash: ``,
+        displayedHash: ``
+    }
 });
 
 function alerts(state = initialState.alerts, action) {
@@ -85,7 +92,8 @@ function display(state = initialState.display, action) {
                     {},
                     state,
                     { currentMove: 0 },
-                    action.parsedGame
+                    action.parsedGame,
+                    { displayedHash: action.parsedGame.hash }
                 );
             }
             return state;
@@ -130,6 +138,33 @@ function fetchQueue(state = initialState.fetchQueue, action) {
 
 function dialog(state = initialState.dialog, action) {
     switch (action.type) {
+        case ACTIONS.SET_CURRENT_GAME_HASH:
+            return Object.assign({}, state, { currentHash: action.hash });
+        case ACTIONS.NOTIFY_GAME_FETCH:
+            return Object.assign({}, state, {
+                gameJustFetchedHash: action.hash,
+                show: action.hash === state.currentHash,
+                title: `Game Loaded!`,
+                message: `The game ${action.player1} vs. ${
+                    action.player2
+                } has finished loading. Would you like to see it now?`,
+                type: Dialog.buttons.yesNo
+            });
+        case ACTIONS.HIDE_MODAL_DIALOG:
+            return Object.assign({}, state, { show: false });
+        case ACTIONS.SHOW_MODAL_DIALOG:
+            const { show, title, message, type, style } = action.dialog;
+            return Object.assign({}, state, {
+                show,
+                title,
+                message,
+                type,
+                style
+            });
+        case ACTIONS.LOAD_GAME_TO_DISPLAY:
+            return Object.assign({}, state, {
+                displayedHash: action.parsedGame.hash
+            });
         default:
             return state;
     }
