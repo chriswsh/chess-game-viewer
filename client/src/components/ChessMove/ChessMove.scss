@@ -1,5 +1,5 @@
-@import 'scss/partials/_color.scss';
-@import 'scss/partials/_settings.scss';
+@import "scss/partials/_color.scss";
+@import "scss/partials/_settings.scss";
 
 .wsh-ChessMove {
     width: 100%;
@@ -12,13 +12,20 @@
     div {
         flex-grow: 1;
     }
-    
+
     /* This should always be the chess move number */
     div:first-child {
         flex-grow: 0;
         padding: 0 0.75em 0 0;
         width: 2.5em;
         text-align: right;
+    }
+
+    /* This shoudl always be the the light square move */
+    div:nth-child(2) {
+        flex-grow: 0;
+        width: 40%;
+        min-width: 4em;
     }
 
     div.focus {
