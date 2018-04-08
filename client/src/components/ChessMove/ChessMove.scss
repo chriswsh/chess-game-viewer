@@ -17,14 +17,14 @@
     div:first-child {
         flex-grow: 0;
         padding: 0 0.75em 0 0;
-        width: 2.5em;
+        flex-basis: 2.5em;
         text-align: right;
     }
 
-    /* This shoudl always be the the light square move */
+    /* This should always be the the light square move */
     div:nth-child(2) {
         flex-grow: 0;
-        width: 40%;
+        flex-basis: 40%;
         min-width: 4em;
     }
 
