@@ -126,7 +126,7 @@ ModalDialog.defaultProps = {
     type: Dialog.buttons.okCancel,
     style: Dialog.style.normal,
     reactions: {},
-    cachse: {},
+    cache: {},
     newlyLoadedGame: ``,
     displayedHash: ``
 };
