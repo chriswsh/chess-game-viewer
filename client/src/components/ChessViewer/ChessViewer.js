@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import Chessboard from "../Chessboard/Chessboard";
@@ -26,22 +27,40 @@ class ChessViewer extends Component {
 
     render() {
         return (
-            <div>
-                <ChessStatusBarContainer />
-                <ChessGameSelectorContainer />
-                <ChessHeader
-                    player1={this.props.player1}
-                    player2={this.props.player2}
-                />
-                <Chessboard
-                    board={this.props.history[this.props.currentMove]}
-                />
-                <ChessControlsContainer />
-                <ChessMoveList
-                    current={this.props.currentMove}
-                    moveList={this.props.moveList}
-                />
-            </div>
+            <Grid>
+                <Row className="show-grid">
+                    <Col xs={12} sm={12} md={12} lg={12}>
+                        <ChessStatusBarContainer />
+                    </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col xs={12} sm={12} md={12} lg={12}>
+                        <ChessGameSelectorContainer />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} sm={12} md={12} lg={12}>
+                        <ChessHeader
+                            player1={this.props.player1}
+                            player2={this.props.player2}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} sm={6} md={5} lg={4}>
+                        <Chessboard
+                            board={this.props.history[this.props.currentMove]}
+                        />
+                    </Col>
+                    <Col xs={12} sm={6} md={7} lg={8}>
+                        <ChessMoveList
+                            current={this.props.currentMove}
+                            moveList={this.props.moveList}
+                        />
+                        <ChessControlsContainer />
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

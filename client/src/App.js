@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
 import { ChessViewer, AppHeader, ModalDialogBox } from "./components/index";
 
 import { Provider } from "react-redux";
@@ -15,13 +14,7 @@ class InnerApp extends Component {
         return (
             <div>
                 <AppHeader />
-                <Grid>
-                    <Row className="show-grid">
-                        <Col xs={12} md={12}>
-                            <ChessViewer />
-                        </Col>
-                    </Row>
-                </Grid>
+                <ChessViewer />
                 <ModalDialogBox />
             </div>
         );
