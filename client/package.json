@@ -30,8 +30,7 @@
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
-    "watch-css":
-      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
@@ -39,6 +38,8 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ]
   }
 }

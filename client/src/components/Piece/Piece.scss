@@ -1,14 +1,66 @@
-@import 'scss/partials/_color.scss';
+@import "scss/partials/_color.scss";
 
-.wsh-Piece--light {
-    color: $light-piece;
-    text-shadow:
-    -1px -1px 0 $primary-font-color,
-    1px -1px 0 $primary-font-color,
-    -1px 1px 0 $primary-font-color,
-    1px 1px 0 $primary-font-color;
+.wsh-Piece {
+  height: 100%;
+  width: 100%;
 }
 
-.wsh-Piece--dark {
-    color: $dark-piece;
+.wsh-Piece--darkpawn {
+  background: url("/images/icons8-pawn-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--darkknight {
+  background: url("/images/icons8-knight-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--darkbishop {
+  background: url("/images/icons8-bishop-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--darktower {
+  background: url("/images/icons8-rook-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--darkqueen {
+  background: url("/images/icons8-queen-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--darkking {
+  background: url("/images/icons8-king-50.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lightpawn {
+  background: url("/images/icons8-pawn-50-light.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lightknight {
+  background: url("/images/icons8-knight-50-light.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lightbishop {
+  background: url("/images/icons8-bishop-50-light.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lighttower {
+  background: url("/images/icons8-rook-50-light.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lightqueen {
+  background: url("/images/icons8-queen-50-light.png") no-repeat center;
+  background-size: 2em 2em;
+}
+
+.wsh-Piece--lightking {
+  background: url("/images/icons8-king-50-light.png") no-repeat center;
+  background-size: 2em 2em;
 }
